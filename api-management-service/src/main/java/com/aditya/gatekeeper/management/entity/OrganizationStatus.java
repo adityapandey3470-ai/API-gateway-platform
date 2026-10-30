@@ -1,4 +1,4 @@
-package com.aditya.gatekeeper.management.enums;
+package com.aditya.gatekeeper.management.entity;
 
 public enum OrganizationStatus {
     PENDING,
