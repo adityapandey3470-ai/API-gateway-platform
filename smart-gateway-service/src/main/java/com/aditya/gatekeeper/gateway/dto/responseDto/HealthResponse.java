@@ -1,18 +1,15 @@
-package com.aditya.gatekeeper.gateway.dto.response;
+package com.aditya.gatekeeper.gateway.dto.responseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-public class HealthResponseDto {
+public class HealthResponse {
 
     private String serviceName;
     private String serviceDescription;
     private String appStatus;
-
-
-
 }

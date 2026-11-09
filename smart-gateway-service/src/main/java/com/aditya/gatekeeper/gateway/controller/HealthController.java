@@ -1,6 +1,6 @@
 package com.aditya.gatekeeper.gateway.controller;
 
-import com.aditya.gatekeeper.gateway.dto.response.HealthResponseDto;
+import com.aditya.gatekeeper.gateway.dto.responseDto.HealthResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/health")
 public class HealthController {
 
-
-    private final String serviceName;
-    private final String serviceDescription;
+    private String serviceName;
+    private String serviceDescription;
 
     public HealthController(@Value("${info.app.name}") String serviceName,
                             @Value("${info.app.description}") String serviceDescription) {
@@ -21,9 +20,9 @@ public class HealthController {
         this.serviceDescription = serviceDescription;
     }
 
-    @GetMapping("/check")
-    public ResponseEntity<HealthResponseDto> check(){
-        return  ResponseEntity.ok(
-                new HealthResponseDto(serviceName, serviceDescription, "UP"));
+    @GetMapping
+    public ResponseEntity<HealthResponse> health() {
+        return ResponseEntity.ok(
+                new HealthResponse(serviceName, serviceDescription, "UP"));
     }
 }
