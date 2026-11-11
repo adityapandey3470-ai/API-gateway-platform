@@ -28,7 +28,7 @@ export function SplashScreen({ onFinish }) {
           <defs>
             <linearGradient id="splashGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#6366f1"/>
-              <stop offset="100%" stopColor="#06b6d4"/>
+              <stop offset="100%" stopColor="#8b5cf6"/>
             </linearGradient>
             <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur stdDeviation="6" result="blur" />
@@ -38,7 +38,7 @@ export function SplashScreen({ onFinish }) {
           <polygon points="50,6 90,26 90,74 50,94 10,74 10,26" stroke="url(#splashGrad)" strokeWidth="4" fill="rgba(99, 102, 241, 0.08)" />
           <path d="M26 34 L50 50 L50 78 L26 62 Z" fill="url(#splashGrad)" filter="url(#glowFilter)" />
           <path d="M74 34 L50 50 L50 78 L74 62 Z" fill="url(#splashGrad)" opacity="0.8" />
-          <circle cx="50" cy="50" r="9" fill="#ffffff" filter="drop-shadow(0 0 8px #06b6d4)" />
+          <circle cx="50" cy="50" r="9" fill="#ffffff" filter="drop-shadow(0 0 8px #8b5cf6)" />
           <circle cx="50" cy="50" r="4" fill="#6366f1" />
         </svg>
         <div className="splash-brand-text">KoreVane™</div>

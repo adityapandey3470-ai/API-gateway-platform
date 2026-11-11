@@ -9,12 +9,12 @@ export const Icons = {
       <defs>
         <linearGradient id="kvGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#6366f1"/>
-          <stop offset="100%" stopColor="#06b6d4"/>
+          <stop offset="100%" stopColor="#8b5cf6"/>
         </linearGradient>
       </defs>
       <polygon points="50,6 90,26 90,74 50,94 10,74 10,26" stroke="url(#kvGrad)" strokeWidth="4.5" fill="rgba(99, 102, 241, 0.12)" />
       <path d="M26 34 L50 50 L50 78 L26 62 Z" fill="url(#kvGrad)" />
-      <path d="M74 34 L50 50 L50 78 L74 62 Z" fill="url(#kvGrad)" opacity="0.8" />
+      <path d="M74 34 L50 50 L50 78 L74 62 Z" fill="url(#kvGrad)" opacity="0.85" />
       <circle cx="50" cy="50" r="9" fill="#ffffff" />
       <circle cx="50" cy="50" r="4.5" fill="#6366f1" />
     </svg>

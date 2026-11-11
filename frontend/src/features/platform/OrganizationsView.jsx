@@ -272,7 +272,7 @@ export function OrganizationsView({ showToast, onManageAdmin }) {
                 <Icons.X />
               </button>
             </div>
-            <form onSubmit={handleSave}>
+            <form onSubmit={handleSave} className="modal-form-layout">
               <div className="modal-body">
                 <div className="form-group">
                   <label className="form-label">Organization Name</label>

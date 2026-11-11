@@ -122,7 +122,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="modal-form-layout">
           <div className="modal-body modal-scrollable">
             {/* Route Identity */}
             <div className="form-section-header">Route Identity</div>

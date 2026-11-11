@@ -63,9 +63,9 @@ export function SettingsView({ user, onReplayTour, showToast }) {
             <span className="info-val font-mono">{user ? user.organizationSlug || "Control Plane" : "None"}</span>
           </div>
           <div className="session-info-row">
-            <span className="info-key">JWT Access Token:</span>
-            <span className="info-val font-mono text-xs token-truncate">
-              {user && user.token ? `${user.token.substring(0, 32)}...` : "None"}
+            <span className="info-key">Session Status:</span>
+            <span className="info-val font-semibold text-xs text-success">
+              {user && user.token ? "Active & Authenticated" : "Signed Out"}
             </span>
           </div>
         </div>
