@@ -11,9 +11,9 @@
   --font-mono: 'JetBrains Mono', monospace;
 
   /* =========================================================================
-     LIGHT THEME (Clean Neutral White & Soft Slate)
+     LIGHT THEME (Clean Neutral White & Soft Periwinkle Canvas)
      ========================================================================= */
-  --bg-canvas: #f4f6fa;
+  --bg-canvas: linear-gradient(135deg, #dce4f7 0%, #e6ebf8 50%, #edf2fc 100%);
   --bg-app-shell: #ffffff;
   --bg-surface: #f8fafc;
   --bg-card: #ffffff;
@@ -22,7 +22,7 @@
   --bg-input-focus: #ffffff;
 
   --border-subtle: #e2e8f0;
-  --border-card: #e2e8f0;
+  --border-card: #eef2f7;
   --border-focus: #6366f1;
 
   --text-primary: #0f172a;
@@ -396,7 +396,7 @@ html, body {
 
 .sidebar-container {
   width: 230px;
-  background: var(--bg-app-shell);
+  background: #fbfcfe;
   border-right: none;
   padding: 20px 14px;
   display: flex;

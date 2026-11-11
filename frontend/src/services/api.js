@@ -4,7 +4,7 @@
 
 export const SESSION_KEY = "korevane_auth_session";
 export const TOUR_KEY = "korevane_tour_completed";
-export const THEME_KEY = "korevane_theme_mode";
+export const THEME_KEY = "korevane_ui_theme";
 
 export const API = {
   getToken: () => {
