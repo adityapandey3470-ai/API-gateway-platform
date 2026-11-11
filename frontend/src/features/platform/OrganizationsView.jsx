@@ -1,6 +1,6 @@
 /**
  * KoreVane™ - Platform Organizations Management View
- * Inspired by Claymorphic Floating Telemetry Cards
+ * Clean, consistent metric cards matching the rest of the UI
  */
 import React, { useState, useEffect } from 'react';
 import { Icons } from '../../components/Icons';
@@ -110,51 +110,48 @@ export function OrganizationsView({ showToast, onManageAdmin }) {
           <button className="btn btn-secondary" onClick={loadOrganizations} title="Refresh Organizations">
             <Icons.Refresh /> Refresh
           </button>
-          <button className="btn btn-primary btn-shine" onClick={openCreateModal}>
+          <button className="btn btn-primary" onClick={openCreateModal}>
             <Icons.Plus /> New Organization
           </button>
         </div>
       </div>
 
-      {/* Floating 3D Telemetry Contrast Cards (Inspired by Image 1) */}
-      <div className="telemetry-highlight-grid">
-        <div className="contrast-pill-card">
-          <div className="contrast-card-top">
-            <div className="contrast-status-dot-row">
-              <span className="status-mini-dot emerald"></span>
-              <span className="status-mini-dot active"></span>
-              <span className="status-mini-dot active"></span>
+      {/* Clean White Metric Cards matching the rest of the application */}
+      <div className="metrics-grid">
+        <div className="metric-card">
+          <div className="metric-card-header">
+            <span className="metric-tag">Security</span>
+            <div className="status-indicator">
+              <span className="status-dot online"></span>
+              <span className="status-text">Protected</span>
             </div>
-            <span className="contrast-card-tag">Isolation</span>
           </div>
-          <div className="contrast-card-title">Tenant Boundaries Locked</div>
-          <div className="contrast-card-desc">Zero cross-tenant bleed with strict route slug namespacing</div>
+          <div className="metric-card-title">Tenant Isolation</div>
+          <div className="metric-card-desc">Strict route namespaces prevent cross-tenant request leakage</div>
         </div>
 
-        <div className="contrast-pill-card">
-          <div className="contrast-card-top">
-            <div className="contrast-status-dot-row">
-              <span className="status-mini-dot active"></span>
-              <span className="status-mini-dot active"></span>
-              <span className="status-mini-dot emerald"></span>
+        <div className="metric-card">
+          <div className="metric-card-header">
+            <span className="metric-tag">Governance</span>
+            <div className="status-indicator">
+              <span className="status-dot online"></span>
+              <span className="status-text">Enforced</span>
             </div>
-            <span className="contrast-card-tag font-mono">RBAC</span>
           </div>
-          <div className="contrast-card-title">Delegated Tenant Admins</div>
-          <div className="contrast-card-desc">Scoped credentials restricted solely to tenant microservice topologies</div>
+          <div className="metric-card-title">Delegated Administration</div>
+          <div className="metric-card-desc">Scoped tenant admin users manage their microservices independently</div>
         </div>
 
-        <div className="contrast-pill-card">
-          <div className="contrast-card-top">
-            <div className="contrast-status-dot-row">
-              <span className="status-mini-dot emerald"></span>
-              <span className="status-mini-dot emerald"></span>
-              <span className="status-mini-dot"></span>
+        <div className="metric-card">
+          <div className="metric-card-header">
+            <span className="metric-tag">Compliance</span>
+            <div className="status-indicator">
+              <span className="status-dot online"></span>
+              <span className="status-text">Logging</span>
             </div>
-            <span className="contrast-card-tag">Audit Vault</span>
           </div>
-          <div className="contrast-card-title">Immutable Governance</div>
-          <div className="contrast-card-desc">Full audit trail logging all lifecycle actions across all organizations</div>
+          <div className="metric-card-title">Immutable Audit Records</div>
+          <div className="metric-card-desc">Full tamper-evident history of lifecycle actions across the control plane</div>
         </div>
       </div>
 

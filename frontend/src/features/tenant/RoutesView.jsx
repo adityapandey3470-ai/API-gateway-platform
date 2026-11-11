@@ -1,6 +1,6 @@
 /**
  * KoreVane™ - Tenant API Routes View
- * Inspired by Claymorphic Floating Telemetry Cards
+ * Clean, consistent metric cards matching the rest of the UI
  */
 import React, { useState, useEffect } from 'react';
 import { Icons } from '../../components/Icons';
@@ -69,52 +69,48 @@ export function RoutesView({ showToast, onEditRoute, onCreateRoute, onViewVersio
           <button className="btn btn-secondary" onClick={loadRoutes} title="Refresh Routes">
             <Icons.Refresh /> Refresh
           </button>
-          <button className="btn btn-primary btn-shine" onClick={onCreateRoute}>
+          <button className="btn btn-primary" onClick={onCreateRoute}>
             <Icons.Plus /> New API Route
           </button>
         </div>
       </div>
 
-      {/* Floating 3D Telemetry Contrast Cards (Inspired by Image 1) */}
-      <div className="telemetry-highlight-grid">
-        <div className="contrast-pill-card">
-          <div className="contrast-card-top">
-            <div className="contrast-status-dot-row">
-              <span className="status-mini-dot active"></span>
-              <span className="status-mini-dot active"></span>
-              <span className="status-mini-dot emerald"></span>
-              <span className="status-mini-dot"></span>
+      {/* Clean White Metric Cards matching the rest of the application */}
+      <div className="metrics-grid">
+        <div className="metric-card">
+          <div className="metric-card-header">
+            <span className="metric-tag">Zero-Trust</span>
+            <div className="status-indicator">
+              <span className="status-dot online"></span>
+              <span className="status-text">Active</span>
             </div>
-            <span className="contrast-card-tag">Zero-Trust</span>
           </div>
-          <div className="contrast-card-title">Token Verification Active</div>
-          <div className="contrast-card-desc">Inbound JWT validation with sub-millisecond local key rotation</div>
+          <div className="metric-card-title">Token Verification</div>
+          <div className="metric-card-desc">Inbound JWT validation with automated key rotation</div>
         </div>
 
-        <div className="contrast-pill-card">
-          <div className="contrast-card-top">
-            <div className="contrast-status-dot-row">
-              <span className="status-mini-dot emerald"></span>
-              <span className="status-mini-dot emerald"></span>
-              <span className="status-mini-dot emerald"></span>
+        <div className="metric-card">
+          <div className="metric-card-header">
+            <span className="metric-tag">Performance</span>
+            <div className="status-indicator">
+              <span className="status-dot online"></span>
+              <span className="status-text">Sub-ms</span>
             </div>
-            <span className="contrast-card-tag font-mono">0.42 ms</span>
           </div>
-          <div className="contrast-card-title">Routing Engine Optimal</div>
-          <div className="contrast-card-desc">Ant-path dispatching cache warmed in Redis and Smart Gateway workers</div>
+          <div className="metric-card-title">Routing Engine</div>
+          <div className="metric-card-desc">Ant-path dispatching cache active across gateway instances</div>
         </div>
 
-        <div className="contrast-pill-card">
-          <div className="contrast-card-top">
-            <div className="contrast-status-dot-row">
-              <span className="status-mini-dot active"></span>
-              <span className="status-mini-dot"></span>
-              <span className="status-mini-dot active"></span>
+        <div className="metric-card">
+          <div className="metric-card-header">
+            <span className="metric-tag">Messaging</span>
+            <div className="status-indicator">
+              <span className="status-dot online"></span>
+              <span className="status-text">Connected</span>
             </div>
-            <span className="contrast-card-tag">Kafka Live</span>
           </div>
-          <div className="contrast-card-title">Cluster Event Pipeline</div>
-          <div className="contrast-card-desc">Zero-downtime configuration broadcasting across distributed replicas</div>
+          <div className="metric-card-title">Cluster Event Pipeline</div>
+          <div className="metric-card-desc">Real-time configuration broadcasting via Apache Kafka</div>
         </div>
       </div>
 
@@ -143,7 +139,7 @@ export function RoutesView({ showToast, onEditRoute, onCreateRoute, onViewVersio
         {loading ? (
           <div className="table-loading-state">
             <div className="spinner-glow"></div>
-            <span>Synchronizing routes from control plane...</span>
+            <span>Synchronizing routes...</span>
           </div>
         ) : filtered.length === 0 ? (
           <div className="table-empty-state">

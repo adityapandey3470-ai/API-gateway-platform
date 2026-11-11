@@ -22,7 +22,7 @@ import { SettingsView } from './features/settings/SettingsView';
 export default function App() {
   const [splashActive, setSplashActive] = useState(true);
 
-  // Theme auto-detects system prefers-color-scheme with manual override
+  // Theme auto-detects system preference with manual override
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem(THEME_KEY);
     if (saved) return saved;
@@ -33,6 +33,7 @@ export default function App() {
   });
 
   const [tourOpen, setTourOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(() => API.getSession());
   const [currentTab, setCurrentTab] = useState(() => {
     const session = API.getSession();
@@ -77,7 +78,6 @@ export default function App() {
 
   const handleSplashFinished = () => {
     setSplashActive(false);
-
     const hasCompletedTour = localStorage.getItem(TOUR_KEY);
     if (!hasCompletedTour) {
       setTourOpen(true);
@@ -135,10 +135,17 @@ export default function App() {
         onToggleTheme={handleToggleTheme}
         onLogout={handleLogout}
         healthStatus={healthStatus}
+        onToggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)}
       />
 
       <div className="workspace-layout">
-        <Sidebar currentTab={currentTab} setTab={setCurrentTab} user={user} />
+        <Sidebar
+          currentTab={currentTab}
+          setTab={setCurrentTab}
+          user={user}
+          mobileOpen={mobileMenuOpen}
+          onCloseMobile={() => setMobileMenuOpen(false)}
+        />
 
         <main className="main-content-area">
           {currentTab === "organizations" && user.role === "ROLE_PLATFORM_ADMIN" && (

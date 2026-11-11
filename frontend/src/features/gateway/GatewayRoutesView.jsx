@@ -1,5 +1,6 @@
 /**
  * KoreVane™ - Gateway Cluster Live Routes View
+ * Consistent typography, unified badges, and clean white theme
  */
 import React, { useState, useEffect } from 'react';
 import { Icons } from '../../components/Icons';
@@ -29,8 +30,8 @@ export function GatewayRoutesView({ showToast }) {
     <div className="view-container">
       <div className="view-header-bar">
         <div>
-          <h2 className="view-title">Active Gateway Cluster Routes</h2>
-          <p className="view-subtitle">Live routing tables distributed to smart gateway worker instances via Kafka/Redis</p>
+          <h2 className="view-title">Active Gateway Routes</h2>
+          <p className="view-subtitle">Live routing tables distributed to smart gateway worker instances via Kafka & Redis</p>
         </div>
         <div className="view-actions-group">
           <button className="btn btn-secondary" onClick={loadGatewayRoutes} title="Refresh Live Routes">
@@ -39,9 +40,9 @@ export function GatewayRoutesView({ showToast }) {
         </div>
       </div>
 
-      <div className="stats-pill-group mb-4">
+      <div className="stats-pill-group">
         <span className="stats-pill">Total Active Routes: {routes.length}</span>
-        <span className="stats-pill text-cyan">Cluster Sync: OK</span>
+        <span className="stats-pill text-success">Cluster Sync: Active</span>
       </div>
 
       <div className="data-table-card">

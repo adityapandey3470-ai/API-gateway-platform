@@ -1,5 +1,6 @@
 /**
- * KoreVane™ - Floating Feedback Notification Toasts
+ * KoreVane™ - Floating Notification Toast
+ * Placed cleanly in bottom-right corner with polished styling
  */
 import React, { useEffect } from 'react';
 import { Icons } from './Icons';
@@ -13,14 +14,17 @@ export function Toast({ message, type, onClose }) {
   }, [onClose]);
 
   return (
-    <div className={`toast-banner toast-${type || "info"}`}>
-      <div className="toast-icon">
+    <div className={`toast-container-bottom toast-${type || "info"}`}>
+      <div className="toast-icon-wrapper">
         {type === "success" && <Icons.Check />}
         {type === "error" && <Icons.X />}
         {(!type || type === "info") && <Icons.Sparkles />}
       </div>
-      <div className="toast-text">{message}</div>
-      <button className="toast-close" onClick={onClose}>
+      <div className="toast-content-wrapper">
+        <div className="toast-title-text">{type === "error" ? "Action Failed" : type === "success" ? "Success" : "Notification"}</div>
+        <div className="toast-message-text">{message}</div>
+      </div>
+      <button className="toast-dismiss-btn" onClick={onClose} aria-label="Close notification">
         <Icons.X />
       </button>
     </div>
