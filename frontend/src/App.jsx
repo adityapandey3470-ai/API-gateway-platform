@@ -77,10 +77,6 @@ export default function App() {
 
   const handleSplashFinished = () => {
     setSplashActive(false);
-    const initialSplash = document.getElementById("korevane-splash");
-    if (initialSplash && initialSplash.parentNode) {
-      initialSplash.parentNode.removeChild(initialSplash);
-    }
 
     const hasCompletedTour = localStorage.getItem(TOUR_KEY);
     if (!hasCompletedTour) {
