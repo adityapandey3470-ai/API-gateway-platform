@@ -1,6 +1,6 @@
 /**
  * KoreVane™ - Floating Notification Toast
- * Placed cleanly in bottom-right corner with polished styling
+ * Placed cleanly in top-right corner with polished styling
  */
 import React, { useEffect } from 'react';
 import { Icons } from './Icons';
@@ -14,7 +14,7 @@ export function Toast({ message, type, onClose }) {
   }, [onClose]);
 
   return (
-    <div className={`toast-container-bottom toast-${type || "info"}`}>
+    <div className={`toast-container toast-${type || "info"}`}>
       <div className="toast-icon-wrapper">
         {type === "success" && <Icons.Check />}
         {type === "error" && <Icons.X />}
