@@ -5,25 +5,14 @@
 import React from 'react';
 import { Icons } from './Icons';
 
-function getAvatarGradient(name = "") {
-  const gradients = [
-    "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)", // indigo-violet
-    "linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%)", // sky-blue
-    "linear-gradient(135deg, #10b981 0%, #059669 100%)", // emerald
-    "linear-gradient(135deg, #ec4899 0%, #f43f5e 100%)", // pink-rose
-    "linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)", // amber-orange
-    "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)"  // purple-violet
-  ];
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return gradients[Math.abs(hash) % gradients.length];
-}
-
 export function Navbar({ user, theme, onToggleTheme, onLogout, healthStatus, onToggleMobileMenu }) {
-  const username = user && user.username ? user.username : "User";
-  const initial = username.charAt(0).toUpperCase();
+  const username = user?.username?.trim() || "";
+  const roleName = user?.role ? user.role.replace("ROLE_", "") : "";
+  
+  // Prevent duplicate repetition when username and role are essentially identical (e.g. platform-admin & PLATFORM_ADMIN)
+  const isDuplicateOrEmptyName = !username || (username.toUpperCase().replace(/[-_]/g, "") === roleName.toUpperCase().replace(/[-_]/g, ""));
+  
+  const initial = (username ? username.charAt(0) : (roleName ? roleName.charAt(0) : "U")).toUpperCase();
 
   return (
     <header className="navbar-header">
@@ -67,18 +56,18 @@ export function Navbar({ user, theme, onToggleTheme, onLogout, healthStatus, onT
         {/* User Profile & Sign Out */}
         {user && (
           <div className="navbar-user-block">
-            <div
-              className="user-avatar-badge"
-              style={{ background: getAvatarGradient(username) }}
-              title={username}
-            >
+            <div className="user-avatar-badge" title={username || roleName}>
               {initial}
             </div>
             <div className="user-details-mini">
-              <span className="user-name-text">{username}</span>
-              <span className="user-role-badge">
-                {user.role ? user.role.replace("ROLE_", "") : "USER"}
-              </span>
+              {!isDuplicateOrEmptyName ? (
+                <>
+                  <span className="user-name-text">{username}</span>
+                  <span className="user-role-badge">{roleName}</span>
+                </>
+              ) : (
+                <span className="user-role-badge">{roleName || username || "USER"}</span>
+              )}
             </div>
             <button
               className="logout-action-btn"
