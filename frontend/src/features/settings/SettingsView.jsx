@@ -1,11 +1,12 @@
 /**
  * KoreVane™ - System Settings & Diagnostics View
+ * Clean layout without redundant theme toggle (handled in top navbar)
  */
 import React from 'react';
 import { Icons } from '../../components/Icons';
-import { API, TOUR_KEY } from '../../services/api';
+import { TOUR_KEY } from '../../services/api';
 
-export function SettingsView({ user, theme, setTheme, onReplayTour, showToast }) {
+export function SettingsView({ user, onReplayTour, showToast }) {
   const handleClearTourHistory = () => {
     localStorage.removeItem(TOUR_KEY);
     showToast("Onboarding tour reset. It will display on next launch.", "info");
@@ -15,36 +16,8 @@ export function SettingsView({ user, theme, setTheme, onReplayTour, showToast })
     <div className="view-container">
       <div className="view-header-bar">
         <div>
-          <h2 className="view-title">System Settings & Preferences</h2>
-          <p className="view-subtitle">Appearance, active credentials session, and control plane diagnostics</p>
-        </div>
-      </div>
-
-      {/* Appearance Settings */}
-      <div className="settings-section-card mb-4">
-        <div className="settings-card-header">
-          <Icons.Sun />
-          <div>
-            <h3>Display Theme Mode</h3>
-            <p className="text-secondary text-sm">Customize dark or light aesthetic mode</p>
-          </div>
-        </div>
-        <div className="theme-options-grid mt-3">
-          <button
-            className={`theme-selector-box ${theme === "dark" ? "active" : ""}`}
-            onClick={() => setTheme("dark")}
-          >
-            <div className="theme-preview-dark"></div>
-            <span>Dark Theme (Night Matrix)</span>
-          </button>
-
-          <button
-            className={`theme-selector-box ${theme === "light" ? "active" : ""}`}
-            onClick={() => setTheme("light")}
-          >
-            <div className="theme-preview-light"></div>
-            <span>Light Theme (Solar Clean)</span>
-          </button>
+          <h2 className="view-title">System Settings</h2>
+          <p className="view-subtitle">Platform configuration, guidance tour, and active session diagnostics</p>
         </div>
       </div>
 
@@ -53,13 +26,13 @@ export function SettingsView({ user, theme, setTheme, onReplayTour, showToast })
         <div className="settings-card-header">
           <Icons.BookOpen />
           <div>
-            <h3>Onboarding & Guidance</h3>
-            <p className="text-secondary text-sm">Re-launch the product tour or reset first-time flags</p>
+            <h3>Onboarding & Walkthrough</h3>
+            <p className="text-secondary text-sm">Re-launch the interactive product tour or reset first-time flags</p>
           </div>
         </div>
-        <div className="settings-action-row mt-3">
+        <div className="settings-action-row mt-3 flex items-center gap-2">
           <button className="btn btn-secondary" onClick={onReplayTour}>
-            <Icons.Sparkles /> Replay Interactive Tour
+            <Icons.Sparkles /> Replay Walkthrough Tour
           </button>
           <button className="btn btn-ghost" onClick={handleClearTourHistory}>
             Reset Tour Status
@@ -86,13 +59,13 @@ export function SettingsView({ user, theme, setTheme, onReplayTour, showToast })
             <span className="info-val font-mono">{user ? user.role : "None"}</span>
           </div>
           <div className="session-info-row">
-            <span className="info-key">Organization Slug:</span>
-            <span className="info-val font-mono">{user ? user.organizationSlug || "N/A" : "N/A"}</span>
+            <span className="info-key">Organization:</span>
+            <span className="info-val font-mono">{user ? user.organizationSlug || "Control Plane" : "None"}</span>
           </div>
           <div className="session-info-row">
             <span className="info-key">JWT Access Token:</span>
             <span className="info-val font-mono text-xs token-truncate">
-              {user && user.token ? `${user.token.substring(0, 36)}...` : "None"}
+              {user && user.token ? `${user.token.substring(0, 32)}...` : "None"}
             </span>
           </div>
         </div>

@@ -170,8 +170,6 @@ export default function App() {
           {currentTab === "settings" && (
             <SettingsView
               user={user}
-              theme={theme}
-              setTheme={setTheme}
               onReplayTour={() => setTourOpen(true)}
               showToast={showToast}
             />

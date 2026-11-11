@@ -1,5 +1,6 @@
 /**
  * KoreVane™ - Create / Edit API Route Modal
+ * Fully responsive across all devices with clean switch toggles
  */
 import React, { useState } from 'react';
 import { Icons } from '../../components/Icons';
@@ -68,7 +69,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!routeId || !name || !pathPattern || !targetBaseUrl || !targetPathPrefix) {
+    if (!routeId.trim() || !name.trim() || !pathPattern.trim() || !targetBaseUrl.trim() || !targetPathPrefix.trim()) {
       showToast("Please fill in all required route identification fields.", "error");
       return;
     }
@@ -88,7 +89,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
       idempotencyEnabled,
       active,
       allowedMethods: Array.from(allowedMethods),
-      headerRules: headerRules.filter((r) => r.headerName.trim().length > 0)
+      headerRules: headerRules.filter((r) => r.headerName && r.headerName.trim().length > 0)
     };
 
     setSaving(true);
@@ -116,14 +117,14 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
             <h3>{route ? `Edit Route: ${route.routeId}` : "Configure New API Route"}</h3>
             <p className="modal-subtitle">Define path dispatching, security policies, and upstream destination</p>
           </div>
-          <button className="modal-close" onClick={onClose}>
+          <button className="modal-close" onClick={onClose} aria-label="Close modal">
             <Icons.X />
           </button>
         </div>
 
         <form onSubmit={handleSubmit}>
           <div className="modal-body modal-scrollable">
-            {/* Basic Route Metadata */}
+            {/* Route Identity */}
             <div className="form-section-header">Route Identity</div>
             <div className="form-grid-2">
               <div className="form-group">
@@ -151,7 +152,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
               </div>
             </div>
 
-            {/* Path & Target URL */}
+            {/* Gateway Path & Upstream Target */}
             <div className="form-section-header mt-3">Gateway Path & Upstream Target</div>
             <div className="form-grid-2">
               <div className="form-group">
@@ -164,7 +165,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
                   onChange={(e) => setPathPattern(e.target.value)}
                   required
                 />
-                <small className="form-hint">Ant-style matching pattern (e.g. /catalog/**)</small>
+                <small className="form-hint">Ant-style matching pattern (e.g. /orders/**)</small>
               </div>
               <div className="form-group">
                 <label className="form-label">Target Base URL</label>
@@ -194,7 +195,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
 
             {/* Allowed HTTP Methods */}
             <div className="form-section-header mt-3">Allowed HTTP Methods</div>
-            <div className="methods-selector-row mb-3">
+            <div className="methods-selector-row">
               {AVAILABLE_METHODS.map((m) => (
                 <button
                   key={m}
@@ -207,7 +208,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
               ))}
             </div>
 
-            {/* Rate Limiting & Timeouts */}
+            {/* Throttling & Resilience */}
             <div className="form-section-header mt-3">Throttling & Resilience</div>
             <div className="form-grid-2">
               <div className="form-group">
@@ -235,24 +236,38 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
               </div>
             </div>
 
-            {/* Flags */}
-            <div className="form-flags-row mb-3">
-              <label className="checkbox-toggle-label">
-                <input
-                  type="checkbox"
-                  checked={idempotencyEnabled}
-                  onChange={(e) => setIdempotencyEnabled(e.target.checked)}
-                />
-                <span>Enable Idempotency Keys (Distributed Deduping)</span>
-              </label>
-              <label className="checkbox-toggle-label">
-                <input
-                  type="checkbox"
-                  checked={active}
-                  onChange={(e) => setActive(e.target.checked)}
-                />
-                <span>Route Active & Serving Traffic</span>
-              </label>
+            {/* Flags in clean separate cards to prevent text collision */}
+            <div className="form-section-header mt-3">Policy Flags</div>
+            <div className="flags-cards-grid">
+              <div className="flag-toggle-card">
+                <div className="flag-card-info">
+                  <div className="flag-title">Distributed Idempotency</div>
+                  <div className="flag-desc">Deduplicate identical concurrent write requests</div>
+                </div>
+                <button
+                  type="button"
+                  className={`switch-toggle-btn ${idempotencyEnabled ? "switch-on" : "switch-off"}`}
+                  onClick={() => setIdempotencyEnabled(!idempotencyEnabled)}
+                  aria-label="Toggle Idempotency"
+                >
+                  <span className="switch-handle"></span>
+                </button>
+              </div>
+
+              <div className="flag-toggle-card">
+                <div className="flag-card-info">
+                  <div className="flag-title">Route Active & Serving Traffic</div>
+                  <div className="flag-desc">Immediately expose route to live inbound requests</div>
+                </div>
+                <button
+                  type="button"
+                  className={`switch-toggle-btn ${active ? "switch-on" : "switch-off"}`}
+                  onClick={() => setActive(!active)}
+                  aria-label="Toggle Route Active"
+                >
+                  <span className="switch-handle"></span>
+                </button>
+              </div>
             </div>
 
             {/* Dynamic Header Rules */}
@@ -271,42 +286,44 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
               ) : (
                 <div className="rules-builder-list">
                   {headerRules.map((rule, idx) => (
-                    <div key={idx} className="rule-builder-row">
-                      <select
-                        className="form-select font-mono"
-                        value={rule.direction}
-                        onChange={(e) => updateHeaderRule(idx, "direction", e.target.value)}
-                      >
-                        <option value="INBOUND">Inbound (Req)</option>
-                        <option value="OUTBOUND">Outbound (Res)</option>
-                      </select>
-                      <select
-                        className="form-select"
-                        value={rule.action}
-                        onChange={(e) => updateHeaderRule(idx, "action", e.target.value)}
-                      >
-                        {HEADER_ACTIONS.map((a) => (
-                          <option key={a.value} value={a.value}>{a.label}</option>
-                        ))}
-                      </select>
-                      <input
-                        type="text"
-                        className="form-input font-mono"
-                        placeholder="Header Name"
-                        value={rule.headerName}
-                        onChange={(e) => updateHeaderRule(idx, "headerName", e.target.value)}
-                        required
-                      />
-                      <input
-                        type="text"
-                        className="form-input font-mono"
-                        placeholder="Value"
-                        value={rule.headerValue}
-                        onChange={(e) => updateHeaderRule(idx, "headerValue", e.target.value)}
-                      />
+                    <div key={idx} className="rule-card-item">
+                      <div className="rule-card-inputs">
+                        <select
+                          className="form-select font-mono"
+                          value={rule.direction}
+                          onChange={(e) => updateHeaderRule(idx, "direction", e.target.value)}
+                        >
+                          <option value="INBOUND">Inbound (Req)</option>
+                          <option value="OUTBOUND">Outbound (Res)</option>
+                        </select>
+                        <select
+                          className="form-select"
+                          value={rule.action}
+                          onChange={(e) => updateHeaderRule(idx, "action", e.target.value)}
+                        >
+                          {HEADER_ACTIONS.map((a) => (
+                            <option key={a.value} value={a.value}>{a.label}</option>
+                          ))}
+                        </select>
+                        <input
+                          type="text"
+                          className="form-input font-mono"
+                          placeholder="Header Name"
+                          value={rule.headerName}
+                          onChange={(e) => updateHeaderRule(idx, "headerName", e.target.value)}
+                          required
+                        />
+                        <input
+                          type="text"
+                          className="form-input font-mono"
+                          placeholder="Value"
+                          value={rule.headerValue}
+                          onChange={(e) => updateHeaderRule(idx, "headerValue", e.target.value)}
+                        />
+                      </div>
                       <button
                         type="button"
-                        className="btn btn-danger-ghost btn-icon-only"
+                        className="btn btn-danger-ghost btn-sm remove-rule-btn"
                         onClick={() => removeHeaderRule(idx)}
                         title="Remove rule"
                       >
@@ -323,8 +340,8 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
             <button type="button" className="btn btn-ghost" onClick={onClose}>
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary btn-shine" disabled={saving}>
-              {saving ? "Saving Configuration..." : route ? "Update Route" : "Deploy Route"}
+            <button type="submit" className="btn btn-primary" disabled={saving}>
+              {saving ? "Saving..." : route ? "Update Route" : "Deploy Route"}
             </button>
           </div>
         </form>
