@@ -22,12 +22,14 @@ import { SettingsView } from './features/settings/SettingsView';
 export default function App() {
   const [splashActive, setSplashActive] = useState(true);
 
-  // Default strictly to clean white light mode (inspired by the Figma design)
+  // Theme auto-detects system preference with manual override
   const [theme, setTheme] = useState(() => {
-    localStorage.removeItem("korevane_theme_mode"); // clear old dark cache
     const saved = localStorage.getItem(THEME_KEY);
-    if (saved === "dark") return "light"; // ensure light theme is active
-    return "light";
+    if (saved) return saved;
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+      return "light";
+    }
+    return "dark";
   });
 
   const [tourOpen, setTourOpen] = useState(false);
@@ -52,6 +54,19 @@ export default function App() {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem(THEME_KEY, theme);
   }, [theme]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-color-scheme: light)");
+    const handler = (e) => {
+      if (!localStorage.getItem(THEME_KEY)) {
+        setTheme(e.matches ? "light" : "dark");
+      }
+    };
+    if (media.addEventListener) {
+      media.addEventListener("change", handler);
+      return () => media.removeEventListener("change", handler);
+    }
+  }, []);
 
   useEffect(() => {
     API.getHealth()
