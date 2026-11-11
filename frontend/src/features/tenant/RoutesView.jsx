@@ -1,5 +1,6 @@
 /**
  * KoreVane™ - Tenant API Routes View
+ * Inspired by Claymorphic Floating Telemetry Cards
  */
 import React, { useState, useEffect } from 'react';
 import { Icons } from '../../components/Icons';
@@ -71,6 +72,49 @@ export function RoutesView({ showToast, onEditRoute, onCreateRoute, onViewVersio
           <button className="btn btn-primary btn-shine" onClick={onCreateRoute}>
             <Icons.Plus /> New API Route
           </button>
+        </div>
+      </div>
+
+      {/* Floating 3D Telemetry Contrast Cards (Inspired by Image 1) */}
+      <div className="telemetry-highlight-grid">
+        <div className="contrast-pill-card">
+          <div className="contrast-card-top">
+            <div className="contrast-status-dot-row">
+              <span className="status-mini-dot active"></span>
+              <span className="status-mini-dot active"></span>
+              <span className="status-mini-dot emerald"></span>
+              <span className="status-mini-dot"></span>
+            </div>
+            <span className="contrast-card-tag">Zero-Trust</span>
+          </div>
+          <div className="contrast-card-title">Token Verification Active</div>
+          <div className="contrast-card-desc">Inbound JWT validation with sub-millisecond local key rotation</div>
+        </div>
+
+        <div className="contrast-pill-card">
+          <div className="contrast-card-top">
+            <div className="contrast-status-dot-row">
+              <span className="status-mini-dot emerald"></span>
+              <span className="status-mini-dot emerald"></span>
+              <span className="status-mini-dot emerald"></span>
+            </div>
+            <span className="contrast-card-tag font-mono">0.42 ms</span>
+          </div>
+          <div className="contrast-card-title">Routing Engine Optimal</div>
+          <div className="contrast-card-desc">Ant-path dispatching cache warmed in Redis and Smart Gateway workers</div>
+        </div>
+
+        <div className="contrast-pill-card">
+          <div className="contrast-card-top">
+            <div className="contrast-status-dot-row">
+              <span className="status-mini-dot active"></span>
+              <span className="status-mini-dot"></span>
+              <span className="status-mini-dot active"></span>
+            </div>
+            <span className="contrast-card-tag">Kafka Live</span>
+          </div>
+          <div className="contrast-card-title">Cluster Event Pipeline</div>
+          <div className="contrast-card-desc">Zero-downtime configuration broadcasting across distributed replicas</div>
         </div>
       </div>
 

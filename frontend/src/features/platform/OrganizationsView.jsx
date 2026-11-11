@@ -1,5 +1,6 @@
 /**
  * KoreVane™ - Platform Organizations Management View
+ * Inspired by Claymorphic Floating Telemetry Cards
  */
 import React, { useState, useEffect } from 'react';
 import { Icons } from '../../components/Icons';
@@ -112,6 +113,48 @@ export function OrganizationsView({ showToast, onManageAdmin }) {
           <button className="btn btn-primary btn-shine" onClick={openCreateModal}>
             <Icons.Plus /> New Organization
           </button>
+        </div>
+      </div>
+
+      {/* Floating 3D Telemetry Contrast Cards (Inspired by Image 1) */}
+      <div className="telemetry-highlight-grid">
+        <div className="contrast-pill-card">
+          <div className="contrast-card-top">
+            <div className="contrast-status-dot-row">
+              <span className="status-mini-dot emerald"></span>
+              <span className="status-mini-dot active"></span>
+              <span className="status-mini-dot active"></span>
+            </div>
+            <span className="contrast-card-tag">Isolation</span>
+          </div>
+          <div className="contrast-card-title">Tenant Boundaries Locked</div>
+          <div className="contrast-card-desc">Zero cross-tenant bleed with strict route slug namespacing</div>
+        </div>
+
+        <div className="contrast-pill-card">
+          <div className="contrast-card-top">
+            <div className="contrast-status-dot-row">
+              <span className="status-mini-dot active"></span>
+              <span className="status-mini-dot active"></span>
+              <span className="status-mini-dot emerald"></span>
+            </div>
+            <span className="contrast-card-tag font-mono">RBAC</span>
+          </div>
+          <div className="contrast-card-title">Delegated Tenant Admins</div>
+          <div className="contrast-card-desc">Scoped credentials restricted solely to tenant microservice topologies</div>
+        </div>
+
+        <div className="contrast-pill-card">
+          <div className="contrast-card-top">
+            <div className="contrast-status-dot-row">
+              <span className="status-mini-dot emerald"></span>
+              <span className="status-mini-dot emerald"></span>
+              <span className="status-mini-dot"></span>
+            </div>
+            <span className="contrast-card-tag">Audit Vault</span>
+          </div>
+          <div className="contrast-card-title">Immutable Governance</div>
+          <div className="contrast-card-desc">Full audit trail logging all lifecycle actions across all organizations</div>
         </div>
       </div>
 
