@@ -6,7 +6,8 @@ import React from 'react';
 import { Icons } from './Icons';
 
 export function Sidebar({ currentTab, setTab, user, mobileOpen, onCloseMobile }) {
-  const role = user ? user.role : null;
+  const rawRole = user ? user.role : null;
+  const role = rawRole && rawRole.startsWith("ROLE_") ? rawRole : `ROLE_${rawRole}`;
 
   let navItems = [];
   if (role === "ROLE_PLATFORM_ADMIN") {

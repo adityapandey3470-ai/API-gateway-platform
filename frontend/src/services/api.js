@@ -18,13 +18,20 @@ export const API = {
 
   getSession: () => {
     try {
-      return JSON.parse(sessionStorage.getItem(SESSION_KEY));
+      const data = JSON.parse(sessionStorage.getItem(SESSION_KEY));
+      if (data && data.role && !data.role.startsWith("ROLE_")) {
+        data.role = `ROLE_${data.role}`;
+      }
+      return data;
     } catch {
       return null;
     }
   },
 
   setSession: (sessionData) => {
+    if (sessionData && sessionData.role && !sessionData.role.startsWith("ROLE_")) {
+      sessionData.role = `ROLE_${sessionData.role}`;
+    }
     sessionStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
   },
 

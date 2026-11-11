@@ -10,9 +10,10 @@ export function SettingsView({ user, onReplayTour, showToast }) {
   const [orgData, setOrgData] = useState(null);
   const [orgName, setOrgName] = useState("");
   const [savingOrg, setSavingOrg] = useState(false);
+  const userRole = user && user.role ? (user.role.startsWith("ROLE_") ? user.role : `ROLE_${user.role}`) : "";
 
   useEffect(() => {
-    if (user && user.role === "ROLE_TENANT_ADMIN") {
+    if (userRole === "ROLE_TENANT_ADMIN") {
       API.getMyOrganization()
         .then((data) => {
           if (data) {
@@ -22,7 +23,7 @@ export function SettingsView({ user, onReplayTour, showToast }) {
         })
         .catch(() => {});
     }
-  }, [user]);
+  }, [userRole]);
 
   const handleClearTourHistory = () => {
     localStorage.removeItem(TOUR_KEY);
@@ -57,7 +58,7 @@ export function SettingsView({ user, onReplayTour, showToast }) {
       </div>
 
       {/* Tenant Organization Profile (if Tenant Admin) */}
-      {user && user.role === "ROLE_TENANT_ADMIN" && orgData && (
+      {userRole === "ROLE_TENANT_ADMIN" && orgData && (
         <div className="settings-section-card mb-4">
           <div className="settings-card-header">
             <Icons.Building />

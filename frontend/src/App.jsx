@@ -19,7 +19,13 @@ import { GatewayRoutesView } from './features/gateway/GatewayRoutesView';
 import { HowToUseView } from './features/guide/HowToUseView';
 import { SettingsView } from './features/settings/SettingsView';
 
-function getDefaultTabForRole(role) {
+function normalizeRole(rawRole) {
+  if (!rawRole) return "";
+  return rawRole.startsWith("ROLE_") ? rawRole : `ROLE_${rawRole}`;
+}
+
+function getDefaultTabForRole(rawRole) {
+  const role = normalizeRole(rawRole);
   if (role === "ROLE_PLATFORM_ADMIN") return "organizations";
   if (role === "ROLE_TENANT_ADMIN") return "routes";
   if (role === "ROLE_GATEWAY_SERVICE") return "gateway-routes";
@@ -42,6 +48,8 @@ export default function App() {
   const [tourOpen, setTourOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(() => API.getSession());
+  const userRole = normalizeRole(user?.role);
+
   const [currentTab, setCurrentTab] = useState(() => {
     const session = API.getSession();
     return getDefaultTabForRole(session ? session.role : null);
@@ -83,12 +91,12 @@ export default function App() {
         ROLE_TENANT_ADMIN: ["routes", "audit", "guide", "settings"],
         ROLE_GATEWAY_SERVICE: ["gateway-routes", "guide", "settings"]
       };
-      const allowed = allowedTabsForRole[user.role] || ["guide", "settings"];
+      const allowed = allowedTabsForRole[userRole] || ["guide", "settings"];
       if (!allowed.includes(currentTab)) {
-        setCurrentTab(getDefaultTabForRole(user.role));
+        setCurrentTab(getDefaultTabForRole(userRole));
       }
     }
-  }, [user, currentTab]);
+  }, [user, userRole, currentTab]);
 
   useEffect(() => {
     API.getHealth()
@@ -170,14 +178,14 @@ export default function App() {
         />
 
         <main className="main-content-area">
-          {currentTab === "organizations" && user.role === "ROLE_PLATFORM_ADMIN" && (
+          {currentTab === "organizations" && userRole === "ROLE_PLATFORM_ADMIN" && (
             <OrganizationsView
               showToast={showToast}
               onManageAdmin={(org) => setSelectedOrgForAdmin(org)}
             />
           )}
 
-          {currentTab === "routes" && user.role === "ROLE_TENANT_ADMIN" && (
+          {currentTab === "routes" && userRole === "ROLE_TENANT_ADMIN" && (
             <RoutesView
               showToast={showToast}
               onCreateRoute={() => setRouteModalData({})}
@@ -186,11 +194,11 @@ export default function App() {
             />
           )}
 
-          {currentTab === "audit" && user.role === "ROLE_TENANT_ADMIN" && (
+          {currentTab === "audit" && userRole === "ROLE_TENANT_ADMIN" && (
             <AuditTrailView showToast={showToast} />
           )}
 
-          {currentTab === "gateway-routes" && user.role === "ROLE_GATEWAY_SERVICE" && (
+          {currentTab === "gateway-routes" && userRole === "ROLE_GATEWAY_SERVICE" && (
             <GatewayRoutesView showToast={showToast} />
           )}
 
