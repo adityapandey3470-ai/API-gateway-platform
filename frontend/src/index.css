@@ -176,7 +176,7 @@ html, body {
   background: var(--bg-app-shell);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-shell);
-  border: 1px solid var(--border-card);
+  border: none;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -397,7 +397,7 @@ html, body {
 .sidebar-container {
   width: 230px;
   background: var(--bg-app-shell);
-  border-right: 1px solid var(--border-subtle);
+  border-right: none;
   padding: 20px 14px;
   display: flex;
   flex-direction: column;
@@ -1091,15 +1091,29 @@ html, body {
 }
 
 .modal-close {
-  background: transparent;
-  border: none;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 4px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all var(--transition-fast);
+}
+
+.modal-close svg {
+  width: 14px;
+  height: 14px;
 }
 
 .modal-close:hover {
   color: var(--text-primary);
+  border-color: var(--border-focus);
+  background: var(--bg-card-hover);
 }
 
 .modal-body {
@@ -1285,7 +1299,18 @@ html, body {
 
 .remove-rule-btn {
   flex-shrink: 0;
-  padding: 6px 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-rule-btn svg {
+  width: 13px;
+  height: 13px;
 }
 
 @media (max-width: 680px) {
@@ -1337,8 +1362,8 @@ html, body {
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
@@ -1348,6 +1373,12 @@ html, body {
   justify-content: center;
   cursor: pointer;
   z-index: 10;
+  transition: all var(--transition-fast);
+}
+
+.tour-close-btn svg {
+  width: 13px;
+  height: 13px;
 }
 
 .tour-illustration-zone {

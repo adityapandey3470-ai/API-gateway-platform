@@ -1,15 +1,50 @@
 /**
  * KoreVane™ - System Settings & Diagnostics View
- * Clean layout without redundant theme toggle (handled in top navbar)
+ * Clean layout with Tenant Organization Profile management & Session Diagnostics
  */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Icons } from '../../components/Icons';
-import { TOUR_KEY } from '../../services/api';
+import { API, TOUR_KEY } from '../../services/api';
 
 export function SettingsView({ user, onReplayTour, showToast }) {
+  const [orgData, setOrgData] = useState(null);
+  const [orgName, setOrgName] = useState("");
+  const [savingOrg, setSavingOrg] = useState(false);
+
+  useEffect(() => {
+    if (user && user.role !== "ROLE_PLATFORM_ADMIN") {
+      API.getMyOrganization()
+        .then((data) => {
+          if (data) {
+            setOrgData(data);
+            setOrgName(data.name || "");
+          }
+        })
+        .catch(() => {});
+    }
+  }, [user]);
+
   const handleClearTourHistory = () => {
     localStorage.removeItem(TOUR_KEY);
     showToast("Onboarding tour reset. It will display on next launch.", "info");
+  };
+
+  const handleUpdateOrgName = async (e) => {
+    e.preventDefault();
+    if (!orgName.trim()) {
+      showToast("Organization name cannot be empty.", "error");
+      return;
+    }
+    setSavingOrg(true);
+    try {
+      const updated = await API.updateMyOrganization(orgName.trim());
+      setOrgData(updated);
+      showToast(`Organization name updated to "${orgName.trim()}".`, "success");
+    } catch (err) {
+      showToast(err.message || "Failed to update organization name.", "error");
+    } finally {
+      setSavingOrg(false);
+    }
   };
 
   return (
@@ -20,6 +55,48 @@ export function SettingsView({ user, onReplayTour, showToast }) {
           <p className="view-subtitle">Platform configuration, guidance tour, and active session diagnostics</p>
         </div>
       </div>
+
+      {/* Tenant Organization Profile (if Tenant Admin) */}
+      {user && user.role !== "ROLE_PLATFORM_ADMIN" && orgData && (
+        <div className="settings-section-card mb-4">
+          <div className="settings-card-header">
+            <Icons.Building />
+            <div>
+              <h3>Tenant Organization Profile</h3>
+              <p className="text-secondary text-sm">Manage your organization's legal name and namespace identity</p>
+            </div>
+          </div>
+          <form onSubmit={handleUpdateOrgName} className="mt-3">
+            <div className="form-grid-2">
+              <div className="form-group">
+                <label className="form-label">Organization Slug (Fixed Namespace)</label>
+                <input
+                  type="text"
+                  className="form-input font-mono"
+                  value={orgData.slug || ""}
+                  disabled
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Organization Display Name</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={orgName}
+                  onChange={(e) => setOrgName(e.target.value)}
+                  placeholder="Enter organization name"
+                  required
+                />
+              </div>
+            </div>
+            <div className="mt-3 flex justify-end">
+              <button type="submit" className="btn btn-primary btn-sm" disabled={savingOrg}>
+                {savingOrg ? "Saving..." : "Save Changes"}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {/* Onboarding Tour Replay */}
       <div className="settings-section-card mb-4">
