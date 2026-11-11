@@ -21,9 +21,13 @@ export function LoginView({ onLoginSuccess, showToast }) {
     setLoading(true);
     try {
       const response = await API.login(username.trim(), password);
-      API.setSession(response);
-      showToast(`Welcome back, ${response.username}!`, "success");
-      onLoginSuccess(response);
+      const sessionData = {
+        ...response,
+        username: username.trim()
+      };
+      API.setSession(sessionData);
+      showToast(`Welcome back, ${sessionData.username}!`, "success");
+      onLoginSuccess(sessionData);
     } catch (err) {
       showToast(err.message || "Invalid credentials. Please verify your password.", "error");
     } finally {

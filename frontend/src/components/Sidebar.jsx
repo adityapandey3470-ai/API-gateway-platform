@@ -69,9 +69,6 @@ export function Sidebar({ currentTab, setTab, user, mobileOpen, onCloseMobile })
             <span className="badge-tag">v2.4.0</span>
             <span className="badge-env">Production</span>
           </div>
-          <div className="sidebar-tenant-label">
-            {user && user.organizationSlug ? `@${user.organizationSlug}` : "@control-plane"}
-          </div>
         </div>
       </aside>
     </>

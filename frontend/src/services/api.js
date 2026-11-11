@@ -19,8 +19,18 @@ export const API = {
   getSession: () => {
     try {
       const data = JSON.parse(sessionStorage.getItem(SESSION_KEY));
-      if (data && data.role && !data.role.startsWith("ROLE_")) {
+      if (!data) return null;
+      if (data.role && !data.role.startsWith("ROLE_")) {
         data.role = `ROLE_${data.role}`;
+      }
+      if (!data.username && data.token) {
+        try {
+          const payloadBase64 = data.token.split('.')[1];
+          const payload = JSON.parse(atob(payloadBase64));
+          data.username = payload.sub || "User";
+        } catch {
+          data.username = "User";
+        }
       }
       return data;
     } catch {
@@ -29,8 +39,19 @@ export const API = {
   },
 
   setSession: (sessionData) => {
-    if (sessionData && sessionData.role && !sessionData.role.startsWith("ROLE_")) {
-      sessionData.role = `ROLE_${sessionData.role}`;
+    if (sessionData) {
+      if (sessionData.role && !sessionData.role.startsWith("ROLE_")) {
+        sessionData.role = `ROLE_${sessionData.role}`;
+      }
+      if (!sessionData.username && sessionData.token) {
+        try {
+          const payloadBase64 = sessionData.token.split('.')[1];
+          const payload = JSON.parse(atob(payloadBase64));
+          sessionData.username = payload.sub || "User";
+        } catch {
+          sessionData.username = "User";
+        }
+      }
     }
     sessionStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
   },

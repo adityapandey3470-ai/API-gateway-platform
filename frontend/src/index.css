@@ -1878,3 +1878,123 @@ html, body {
 .font-semibold { font-weight: 600; }
 .font-medium { font-weight: 500; }
 .font-mono { font-family: var(--font-mono); }
+
+/* =========================================================================
+   Contact Support & Privacy Policy Sections
+   ========================================================================= */
+.support-card-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+}
+
+.support-info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.support-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.support-email-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.support-meta-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.support-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.support-action-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Policy Grid */
+.policy-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.policy-item-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color var(--transition-fast);
+}
+
+.policy-item-card:hover {
+  border-color: var(--border-focus);
+}
+
+.policy-item-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.policy-bullet-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--brand-primary);
+  background: var(--color-info-bg);
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+}
+
+.policy-item-text {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+@media (max-width: 680px) {
+  .support-card-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .policy-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

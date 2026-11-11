@@ -25,6 +25,11 @@ export function SettingsView({ user, onReplayTour, showToast }) {
     }
   }, [userRole]);
 
+  const handleCopySupportEmail = () => {
+    navigator.clipboard.writeText("support0912@gmail.com");
+    showToast("Support email (support0912@gmail.com) copied to clipboard!", "success");
+  };
+
   const handleClearTourHistory = () => {
     localStorage.removeItem(TOUR_KEY);
     showToast("Onboarding tour reset. It will display on next launch.", "info");
@@ -115,6 +120,105 @@ export function SettingsView({ user, onReplayTour, showToast }) {
           <button className="btn btn-ghost" onClick={handleClearTourHistory}>
             Reset Tour Status
           </button>
+        </div>
+      </div>
+
+      {/* Contact & Support Section */}
+      <div className="settings-section-card mb-4">
+        <div className="settings-card-header">
+          <Icons.Mail />
+          <div>
+            <h3>Contact & Developer Support</h3>
+            <p className="text-secondary text-sm">Direct technical assistance, incident response, and developer inquiries</p>
+          </div>
+        </div>
+
+        <div className="support-card-container mt-3">
+          <div className="support-info-box">
+            <div className="support-email-group">
+              <span className="support-label">Engineering Desk</span>
+              <div className="support-email-badge">
+                <span className="font-mono font-semibold">support0912@gmail.com</span>
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm btn-icon-only"
+                  onClick={handleCopySupportEmail}
+                  title="Copy email to clipboard"
+                >
+                  <Icons.Copy />
+                </button>
+              </div>
+            </div>
+            <div className="support-meta-tags">
+              <span className="support-tag-pill">
+                <span className="status-dot online"></span> 24/7 Monitoring
+              </span>
+              <span className="support-tag-pill">
+                SLA: &lt; 2 Hours
+              </span>
+            </div>
+          </div>
+          <div className="support-action-box">
+            <a
+              href="mailto:support0912@gmail.com?subject=KoreVane%20Platform%20Support"
+              className="btn btn-primary"
+            >
+              <Icons.Mail /> Send Email
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Privacy & Governance Policy Section */}
+      <div className="settings-section-card mb-4">
+        <div className="settings-card-header">
+          <Icons.Shield />
+          <div>
+            <h3>Privacy & Data Governance Policy</h3>
+            <p className="text-secondary text-sm">Enterprise security standards, credential safety, and data isolation</p>
+          </div>
+        </div>
+
+        <div className="policy-cards-grid mt-3">
+          <div className="policy-item-card">
+            <div className="policy-item-title">
+              <span className="policy-bullet-num">01</span>
+              Zero-Retention Credentials
+            </div>
+            <p className="policy-item-text">
+              JWT tokens and user sessions are held exclusively in browser memory (sessionStorage). No credentials or authentication keys are persisted on third-party tracking disks.
+            </p>
+          </div>
+
+          <div className="policy-item-card">
+            <div className="policy-item-title">
+              <span className="policy-bullet-num">02</span>
+              Strict Multi-Tenant Isolation
+            </div>
+            <p className="policy-item-text">
+              Each tenant organization operates inside a cryptographically isolated namespace. Cross-tenant route dispatching and configuration inspection are blocked by database constraints.
+            </p>
+          </div>
+
+          <div className="policy-item-card">
+            <div className="policy-item-title">
+              <span className="policy-bullet-num">03</span>
+              Immutable Audit Records
+            </div>
+            <p className="policy-item-text">
+              All route provisioning, policy toggles, status changes, and administrator lifecycle actions produce tamper-evident audit records with nanosecond timestamps.
+            </p>
+          </div>
+
+          <div className="policy-item-card">
+            <div className="policy-item-title">
+              <span className="policy-bullet-num">04</span>
+              Zero-Trust Traffic Ingress
+            </div>
+            <p className="policy-item-text">
+              Proxy requests passing through Smart Gateway workers are continuously verified against Ant-path matching, token signatures, and distributed Redis rate-limiting rules.
+            </p>
+          </div>
         </div>
       </div>
 
