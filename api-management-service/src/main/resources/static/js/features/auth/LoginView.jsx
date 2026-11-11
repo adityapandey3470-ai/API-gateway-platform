@@ -56,6 +56,7 @@
                   type="text"
                   className="form-input"
                   placeholder="e.g. platform-admin or tenant admin"
+                  autoComplete="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   disabled={loading}
@@ -72,6 +73,7 @@
                   type={showPassword ? "text" : "password"}
                   className="form-input"
                   placeholder="Enter password"
+                  autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={loading}
