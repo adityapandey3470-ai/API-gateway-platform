@@ -12,7 +12,7 @@ export function SettingsView({ user, onReplayTour, showToast }) {
   const [savingOrg, setSavingOrg] = useState(false);
 
   useEffect(() => {
-    if (user && user.role !== "ROLE_PLATFORM_ADMIN") {
+    if (user && user.role === "ROLE_TENANT_ADMIN") {
       API.getMyOrganization()
         .then((data) => {
           if (data) {
@@ -57,7 +57,7 @@ export function SettingsView({ user, onReplayTour, showToast }) {
       </div>
 
       {/* Tenant Organization Profile (if Tenant Admin) */}
-      {user && user.role !== "ROLE_PLATFORM_ADMIN" && orgData && (
+      {user && user.role === "ROLE_TENANT_ADMIN" && orgData && (
         <div className="settings-section-card mb-4">
           <div className="settings-card-header">
             <Icons.Building />

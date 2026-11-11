@@ -19,6 +19,13 @@ import { GatewayRoutesView } from './features/gateway/GatewayRoutesView';
 import { HowToUseView } from './features/guide/HowToUseView';
 import { SettingsView } from './features/settings/SettingsView';
 
+function getDefaultTabForRole(role) {
+  if (role === "ROLE_PLATFORM_ADMIN") return "organizations";
+  if (role === "ROLE_TENANT_ADMIN") return "routes";
+  if (role === "ROLE_GATEWAY_SERVICE") return "gateway-routes";
+  return "guide";
+}
+
 export default function App() {
   const [splashActive, setSplashActive] = useState(true);
 
@@ -37,7 +44,7 @@ export default function App() {
   const [user, setUser] = useState(() => API.getSession());
   const [currentTab, setCurrentTab] = useState(() => {
     const session = API.getSession();
-    return session && session.role === "ROLE_PLATFORM_ADMIN" ? "organizations" : "routes";
+    return getDefaultTabForRole(session ? session.role : null);
   });
 
   const [healthStatus, setHealthStatus] = useState("UP");
@@ -68,6 +75,21 @@ export default function App() {
     }
   }, []);
 
+  // Guard currentTab against unauthorized access for the active role
+  useEffect(() => {
+    if (user) {
+      const allowedTabsForRole = {
+        ROLE_PLATFORM_ADMIN: ["organizations", "guide", "settings"],
+        ROLE_TENANT_ADMIN: ["routes", "audit", "guide", "settings"],
+        ROLE_GATEWAY_SERVICE: ["gateway-routes", "guide", "settings"]
+      };
+      const allowed = allowedTabsForRole[user.role] || ["guide", "settings"];
+      if (!allowed.includes(currentTab)) {
+        setCurrentTab(getDefaultTabForRole(user.role));
+      }
+    }
+  }, [user, currentTab]);
+
   useEffect(() => {
     API.getHealth()
       .then((res) => {
@@ -95,7 +117,7 @@ export default function App() {
 
   const handleLoginSuccess = (sessionData) => {
     setUser(sessionData);
-    setCurrentTab(sessionData.role === "ROLE_PLATFORM_ADMIN" ? "organizations" : "routes");
+    setCurrentTab(getDefaultTabForRole(sessionData ? sessionData.role : null));
   };
 
   const handleLogout = () => {
@@ -155,7 +177,7 @@ export default function App() {
             />
           )}
 
-          {currentTab === "routes" && (
+          {currentTab === "routes" && user.role === "ROLE_TENANT_ADMIN" && (
             <RoutesView
               showToast={showToast}
               onCreateRoute={() => setRouteModalData({})}
@@ -164,9 +186,16 @@ export default function App() {
             />
           )}
 
-          {currentTab === "audit" && <AuditTrailView showToast={showToast} />}
-          {currentTab === "gateway-routes" && <GatewayRoutesView showToast={showToast} />}
+          {currentTab === "audit" && user.role === "ROLE_TENANT_ADMIN" && (
+            <AuditTrailView showToast={showToast} />
+          )}
+
+          {currentTab === "gateway-routes" && user.role === "ROLE_GATEWAY_SERVICE" && (
+            <GatewayRoutesView showToast={showToast} />
+          )}
+
           {currentTab === "guide" && <HowToUseView />}
+
           {currentTab === "settings" && (
             <SettingsView
               user={user}

@@ -6,22 +6,34 @@ import React from 'react';
 import { Icons } from './Icons';
 
 export function Sidebar({ currentTab, setTab, user, mobileOpen, onCloseMobile }) {
-  const isPlatformAdmin = user && user.role === "ROLE_PLATFORM_ADMIN";
+  const role = user ? user.role : null;
 
-  const navItems = isPlatformAdmin
-    ? [
-        { id: "organizations", label: "Organizations", icon: <Icons.Building /> },
-        { id: "gateway-routes", label: "Gateway Live", icon: <Icons.Activity /> },
-        { id: "guide", label: "User Guide", icon: <Icons.BookOpen /> },
-        { id: "settings", label: "Settings", icon: <Icons.Settings /> }
-      ]
-    : [
-        { id: "routes", label: "API Routes", icon: <Icons.Route /> },
-        { id: "audit", label: "Audit Trail", icon: <Icons.History /> },
-        { id: "gateway-routes", label: "Gateway Live", icon: <Icons.Activity /> },
-        { id: "guide", label: "User Guide", icon: <Icons.BookOpen /> },
-        { id: "settings", label: "Settings", icon: <Icons.Settings /> }
-      ];
+  let navItems = [];
+  if (role === "ROLE_PLATFORM_ADMIN") {
+    navItems = [
+      { id: "organizations", label: "Organizations", icon: <Icons.Building /> },
+      { id: "guide", label: "User Guide", icon: <Icons.BookOpen /> },
+      { id: "settings", label: "Settings", icon: <Icons.Settings /> }
+    ];
+  } else if (role === "ROLE_TENANT_ADMIN") {
+    navItems = [
+      { id: "routes", label: "API Routes", icon: <Icons.Route /> },
+      { id: "audit", label: "Audit Trail", icon: <Icons.History /> },
+      { id: "guide", label: "User Guide", icon: <Icons.BookOpen /> },
+      { id: "settings", label: "Settings", icon: <Icons.Settings /> }
+    ];
+  } else if (role === "ROLE_GATEWAY_SERVICE") {
+    navItems = [
+      { id: "gateway-routes", label: "Gateway Live", icon: <Icons.Activity /> },
+      { id: "guide", label: "User Guide", icon: <Icons.BookOpen /> },
+      { id: "settings", label: "Settings", icon: <Icons.Settings /> }
+    ];
+  } else {
+    navItems = [
+      { id: "guide", label: "User Guide", icon: <Icons.BookOpen /> },
+      { id: "settings", label: "Settings", icon: <Icons.Settings /> }
+    ];
+  }
 
   const handleSelectTab = (id) => {
     setTab(id);
