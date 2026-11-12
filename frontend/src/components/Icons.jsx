@@ -19,6 +19,27 @@ export const Icons = {
       <circle cx="50" cy="50" r="4.5" fill="#6366f1" />
     </svg>
   ),
+  Dashboard: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="7" height="9" rx="1.5"/>
+      <rect x="14" y="3" width="7" height="5" rx="1.5"/>
+      <rect x="14" y="12" width="7" height="9" rx="1.5"/>
+      <rect x="3" y="16" width="7" height="5" rx="1.5"/>
+    </svg>
+  ),
+  Bug: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="8" height="14" x="8" y="6" rx="4" />
+      <path d="m19 7-3 2" />
+      <path d="m5 7 3 2" />
+      <path d="m19 19-3-2" />
+      <path d="m5 19 3-2" />
+      <path d="M20 13h-4" />
+      <path d="M4 13h4" />
+      <path d="m10 4 1 2" />
+      <path d="m14 4-1 2" />
+    </svg>
+  ),
   Shield: () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>

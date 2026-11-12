@@ -12,12 +12,14 @@ export function Sidebar({ currentTab, setTab, user, mobileOpen, onCloseMobile })
   let navItems = [];
   if (role === "ROLE_PLATFORM_ADMIN") {
     navItems = [
+      { id: "overview", label: "Overview", icon: <Icons.Dashboard /> },
       { id: "organizations", label: "Organizations", icon: <Icons.Building /> },
       { id: "guide", label: "User Guide", icon: <Icons.BookOpen /> },
       { id: "settings", label: "Settings", icon: <Icons.Settings /> }
     ];
   } else if (role === "ROLE_TENANT_ADMIN") {
     navItems = [
+      { id: "overview", label: "Overview", icon: <Icons.Dashboard /> },
       { id: "routes", label: "API Routes", icon: <Icons.Route /> },
       { id: "audit", label: "Audit Trail", icon: <Icons.History /> },
       { id: "guide", label: "User Guide", icon: <Icons.BookOpen /> },
@@ -25,12 +27,14 @@ export function Sidebar({ currentTab, setTab, user, mobileOpen, onCloseMobile })
     ];
   } else if (role === "ROLE_GATEWAY_SERVICE") {
     navItems = [
+      { id: "overview", label: "Overview", icon: <Icons.Dashboard /> },
       { id: "gateway-routes", label: "Gateway Live", icon: <Icons.Activity /> },
       { id: "guide", label: "User Guide", icon: <Icons.BookOpen /> },
       { id: "settings", label: "Settings", icon: <Icons.Settings /> }
     ];
   } else {
     navItems = [
+      { id: "overview", label: "Overview", icon: <Icons.Dashboard /> },
       { id: "guide", label: "User Guide", icon: <Icons.BookOpen /> },
       { id: "settings", label: "Settings", icon: <Icons.Settings /> }
     ];

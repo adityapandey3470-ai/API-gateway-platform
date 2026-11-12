@@ -230,9 +230,7 @@ export function OrganizationsView({ showToast, onManageAdmin }) {
                           <Icons.Users /> Admin
                         </button>
                         <button
-                          className={`btn btn-sm ${
-                            org.status === "ACTIVE" ? "btn-warning" : "btn-secondary"
-                          }`}
+                          className="btn btn-secondary btn-sm"
                           onClick={() => handleToggleStatus(org)}
                           title={org.status === "ACTIVE" ? "Suspend Organization" : "Activate Organization"}
                         >

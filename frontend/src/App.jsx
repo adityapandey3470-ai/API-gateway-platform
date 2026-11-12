@@ -16,6 +16,7 @@ import { RouteModal } from './features/tenant/RouteModal';
 import { RouteVersionsModal } from './features/tenant/RouteVersionsModal';
 import { AuditTrailView } from './features/tenant/AuditTrailView';
 import { GatewayRoutesView } from './features/gateway/GatewayRoutesView';
+import { OverviewView } from './features/overview/OverviewView';
 import { HowToUseView } from './features/guide/HowToUseView';
 import { SettingsView } from './features/settings/SettingsView';
 
@@ -25,10 +26,7 @@ function normalizeRole(rawRole) {
 }
 
 function getDefaultTabForRole(rawRole) {
-  const role = normalizeRole(rawRole);
-  if (role === "ROLE_PLATFORM_ADMIN") return "organizations";
-  if (role === "ROLE_TENANT_ADMIN") return "routes";
-  if (role === "ROLE_GATEWAY_SERVICE") return "gateway-routes";
+  if (rawRole) return "overview";
   return "guide";
 }
 
@@ -87,9 +85,9 @@ export default function App() {
   useEffect(() => {
     if (user) {
       const allowedTabsForRole = {
-        ROLE_PLATFORM_ADMIN: ["organizations", "guide", "settings"],
-        ROLE_TENANT_ADMIN: ["routes", "audit", "guide", "settings"],
-        ROLE_GATEWAY_SERVICE: ["gateway-routes", "guide", "settings"]
+        ROLE_PLATFORM_ADMIN: ["overview", "organizations", "guide", "settings"],
+        ROLE_TENANT_ADMIN: ["overview", "routes", "audit", "guide", "settings"],
+        ROLE_GATEWAY_SERVICE: ["overview", "gateway-routes", "guide", "settings"]
       };
       const allowed = allowedTabsForRole[userRole] || ["guide", "settings"];
       if (!allowed.includes(currentTab)) {
@@ -178,6 +176,16 @@ export default function App() {
         />
 
         <main className="main-content-area">
+          {currentTab === "overview" && (
+            <OverviewView
+              user={user}
+              setTab={setCurrentTab}
+              onCreateRoute={() => setRouteModalData({})}
+              onOpenNewOrg={() => setCurrentTab("organizations")}
+              showToast={showToast}
+            />
+          )}
+
           {currentTab === "organizations" && userRole === "ROLE_PLATFORM_ADMIN" && (
             <OrganizationsView
               showToast={showToast}
