@@ -208,7 +208,7 @@ export function RoutesView({ showToast, onEditRoute, onCreateRoute, onViewVersio
                           onClick={() => onViewVersions(route)}
                           title="View Revision History"
                         >
-                          <Icons.History />
+                          <Icons.History /> History
                         </button>
                         <button
                           className="btn btn-ghost btn-sm"

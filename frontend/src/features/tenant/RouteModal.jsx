@@ -26,7 +26,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
   const [allowedMethods, setAllowedMethods] = useState(
     route && route.allowedMethods && route.allowedMethods.length > 0
       ? new Set(route.allowedMethods)
-      : new Set(["GET", "POST"])
+      : new Set(["GET"])
   );
   const [headerRules, setHeaderRules] = useState(
     route && route.headerRules
@@ -289,7 +289,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
                     <div key={idx} className="rule-card-item">
                       <div className="rule-card-inputs">
                         <select
-                          className="form-select font-mono"
+                          className="form-select"
                           value={rule.direction}
                           onChange={(e) => updateHeaderRule(idx, "direction", e.target.value)}
                         >
