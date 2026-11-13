@@ -1,7 +1,3 @@
-/**
- * KoreVane™ - Tenant Admin Management Modal
- * Responsive, clean UI matching design system with zero unstyled artifacts
- */
 import React, { useState, useEffect } from 'react';
 import { Icons } from '../../components/Icons';
 import { API } from '../../services/api';
@@ -83,7 +79,6 @@ export function TenantAdminModal({ org, onClose, showToast }) {
   return (
     <div className="modal-backdrop" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div className="modal-card tenant-admin-modal-card">
-        {/* Modal Header */}
         <div className="modal-header">
           <div className="modal-header-meta">
             <span className="modal-category-tag">Access Control</span>
@@ -97,7 +92,6 @@ export function TenantAdminModal({ org, onClose, showToast }) {
           </button>
         </div>
 
-        {/* Modal Body & Form */}
         <form onSubmit={handleSave} className="modal-form-layout">
           <div className="modal-body">
             {loading ? (
@@ -107,7 +101,6 @@ export function TenantAdminModal({ org, onClose, showToast }) {
               </div>
             ) : (
               <>
-                {/* Active Admin Card or Empty Notice (No Big Star) */}
                 {admin ? (
                   <div className="tenant-admin-current-card">
                     <div className="tenant-admin-meta-row">
@@ -148,7 +141,6 @@ export function TenantAdminModal({ org, onClose, showToast }) {
                   </div>
                 )}
 
-                {/* Form Fields */}
                 <div className="form-group">
                   <label className="form-label">
                     {admin ? "Update Username" : "Assign Username"}
@@ -205,7 +197,6 @@ export function TenantAdminModal({ org, onClose, showToast }) {
             )}
           </div>
 
-          {/* Modal Footer */}
           {!loading && (
             <div className="modal-footer">
               <button type="button" className="btn btn-ghost" onClick={onClose} disabled={saving}>

@@ -1,6 +1,3 @@
-/**
- * KoreVane™ - Route Revision History & Snapshot Modal
- */
 import React, { useState, useEffect } from 'react';
 import { Icons } from '../../components/Icons';
 import { API } from '../../services/api';
@@ -57,7 +54,6 @@ export function RouteVersionsModal({ route, onClose, showToast }) {
             </div>
           ) : (
             <div className="versions-split-layout">
-              {/* Left: Version Timeline List */}
               <div className="versions-timeline-col">
                 {versions.map((ver) => (
                   <div
@@ -80,7 +76,6 @@ export function RouteVersionsModal({ route, onClose, showToast }) {
                 ))}
               </div>
 
-              {/* Right: Selected Snapshot Inspector */}
               <div className="version-snapshot-col">
                 {selectedVersion ? (
                   <div>

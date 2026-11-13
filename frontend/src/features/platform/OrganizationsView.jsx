@@ -1,7 +1,3 @@
-/**
- * KoreVane™ - Platform Organizations Management View
- * Clean, consistent metric cards matching the rest of the UI
- */
 import React, { useState, useEffect } from 'react';
 import { Icons } from '../../components/Icons';
 import { API } from '../../services/api';
@@ -100,11 +96,10 @@ export function OrganizationsView({ showToast, onManageAdmin }) {
 
   return (
     <div className="view-container">
-      {/* View Header */}
       <div className="view-header-bar">
         <div>
-          <h2 className="view-title">Tenant Organizations</h2>
-          <p className="view-subtitle">Manage multi-tenant isolation, domains, and administrative scopes</p>
+          <h2 className="view-title">Organizations</h2>
+          <p className="view-subtitle">Manage customer organizations, status, and tenant admin accounts</p>
         </div>
         <div className="view-actions-group">
           <button className="btn btn-secondary" onClick={loadOrganizations} title="Refresh Organizations">
@@ -116,46 +111,44 @@ export function OrganizationsView({ showToast, onManageAdmin }) {
         </div>
       </div>
 
-      {/* Clean White Metric Cards matching the rest of the application */}
       <div className="metrics-grid">
         <div className="metric-card">
           <div className="metric-card-header">
-            <span className="metric-tag">Security</span>
+            <span className="metric-tag">Tenants</span>
             <div className="status-indicator">
               <span className="status-dot online"></span>
-              <span className="status-text">Protected</span>
+              <span className="status-text">Active</span>
             </div>
           </div>
           <div className="metric-card-title">Tenant Isolation</div>
-          <div className="metric-card-desc">Strict route namespaces prevent cross-tenant request leakage</div>
+          <div className="metric-card-desc">Each organization has an isolated namespace and routes</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-card-header">
-            <span className="metric-tag">Governance</span>
+            <span className="metric-tag">Admins</span>
             <div className="status-indicator">
               <span className="status-dot online"></span>
-              <span className="status-text">Enforced</span>
+              <span className="status-text">Ready</span>
             </div>
           </div>
-          <div className="metric-card-title">Delegated Administration</div>
-          <div className="metric-card-desc">Scoped tenant admin users manage their microservices independently</div>
+          <div className="metric-card-title">Tenant Admins</div>
+          <div className="metric-card-desc">Create dedicated admin credentials for each organization</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-card-header">
-            <span className="metric-tag">Compliance</span>
+            <span className="metric-tag">Audit</span>
             <div className="status-indicator">
               <span className="status-dot online"></span>
-              <span className="status-text">Logging</span>
+              <span className="status-text">Logged</span>
             </div>
           </div>
-          <div className="metric-card-title">Immutable Audit Records</div>
-          <div className="metric-card-desc">Full tamper-evident history of lifecycle actions across the control plane</div>
+          <div className="metric-card-title">Activity Logging</div>
+          <div className="metric-card-desc">All create, update, and status actions are tracked</div>
         </div>
       </div>
 
-      {/* Filter bar */}
       <div className="filter-search-card">
         <div className="input-with-icon search-input-box">
           <span className="input-icon"><Icons.Search /></span>
@@ -175,7 +168,6 @@ export function OrganizationsView({ showToast, onManageAdmin }) {
         </div>
       </div>
 
-      {/* Table View */}
       <div className="data-table-card">
         {loading ? (
           <div className="table-loading-state">
@@ -260,7 +252,6 @@ export function OrganizationsView({ showToast, onManageAdmin }) {
         )}
       </div>
 
-      {/* Create/Edit Modal */}
       {modalOpen && (
         <div className="modal-backdrop">
           <div className="modal-card">

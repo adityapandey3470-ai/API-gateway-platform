@@ -1,7 +1,3 @@
-/**
- * KoreVane™ - System Settings & Diagnostics View
- * Modular section layout with essential, normal controls
- */
 import React, { useState, useEffect } from 'react';
 import { Icons } from '../../components/Icons';
 import { API, TOUR_KEY } from '../../services/api';
@@ -129,7 +125,6 @@ export function SettingsView({ user, onReplayTour, showToast }) {
 
   return (
     <div className="view-container">
-      {/* Header */}
       <div className="view-header-bar">
         <div>
           <h2 className="view-title">Settings</h2>
@@ -137,9 +132,7 @@ export function SettingsView({ user, onReplayTour, showToast }) {
         </div>
       </div>
 
-      {/* Modular Settings Layout */}
       <div className="settings-modular-layout">
-        {/* Navigation Tabs */}
         <nav className="settings-nav-sidebar">
           <div className="settings-nav-list">
             {navSections.map((sec) => (
@@ -156,9 +149,7 @@ export function SettingsView({ user, onReplayTour, showToast }) {
           </div>
         </nav>
 
-        {/* Selected Section Content Panel */}
         <div className="settings-content-panel">
-          {/* Organization Profile */}
           {activeSection === "profile" && (
             <div className="settings-section-card">
               <div className="settings-card-header">
@@ -214,7 +205,6 @@ export function SettingsView({ user, onReplayTour, showToast }) {
             </div>
           )}
 
-          {/* Report a Bug (Clean, Normal, Simple) */}
           {activeSection === "report-bug" && (
             <div className="settings-section-card">
               <div className="settings-card-header">
@@ -266,7 +256,6 @@ export function SettingsView({ user, onReplayTour, showToast }) {
             </div>
           )}
 
-          {/* Contact & Support */}
           {activeSection === "support" && (
             <div className="settings-section-card">
               <div className="settings-card-header">
@@ -308,7 +297,6 @@ export function SettingsView({ user, onReplayTour, showToast }) {
             </div>
           )}
 
-          {/* Onboarding Tour */}
           {activeSection === "tour" && (
             <div className="settings-section-card">
               <div className="settings-card-header">
@@ -330,7 +318,6 @@ export function SettingsView({ user, onReplayTour, showToast }) {
             </div>
           )}
 
-          {/* Privacy Policy */}
           {activeSection === "policy" && (
             <div className="settings-section-card">
               <div className="settings-card-header">
@@ -358,7 +345,6 @@ export function SettingsView({ user, onReplayTour, showToast }) {
             </div>
           )}
 
-          {/* Diagnostics */}
           {activeSection === "diagnostics" && (
             <div className="settings-section-card">
               <div className="settings-card-header">

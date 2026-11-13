@@ -1,7 +1,3 @@
-/**
- * KoreVane™ - Create / Edit API Route Modal
- * Fully responsive across all devices with clean switch toggles
- */
 import React, { useState } from 'react';
 import { Icons } from '../../components/Icons';
 import { API } from '../../services/api';
@@ -124,7 +120,6 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
 
         <form onSubmit={handleSubmit} className="modal-form-layout">
           <div className="modal-body modal-scrollable">
-            {/* Route Identity */}
             <div className="form-section-header">Route Identity</div>
             <div className="form-grid-2">
               <div className="form-group">
@@ -152,7 +147,6 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
               </div>
             </div>
 
-            {/* Gateway Path & Upstream Target */}
             <div className="form-section-header mt-3">Gateway Path & Upstream Target</div>
             <div className="form-grid-2">
               <div className="form-group">
@@ -165,7 +159,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
                   onChange={(e) => setPathPattern(e.target.value)}
                   required
                 />
-                <small className="form-hint">Ant-style matching pattern (e.g. /orders/**)</small>
+                <small className="form-hint">Matching path pattern (e.g. /orders/**)</small>
               </div>
               <div className="form-group">
                 <label className="form-label">Target Base URL</label>
@@ -177,7 +171,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
                   onChange={(e) => setTargetBaseUrl(e.target.value)}
                   required
                 />
-                <small className="form-hint">Upstream microservice host and port</small>
+                <small className="form-hint">Backend destination service address</small>
               </div>
             </div>
 
@@ -193,7 +187,6 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
               />
             </div>
 
-            {/* Allowed HTTP Methods */}
             <div className="form-section-header mt-3">Allowed HTTP Methods</div>
             <div className="methods-selector-row">
               {AVAILABLE_METHODS.map((m) => (
@@ -208,8 +201,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
               ))}
             </div>
 
-            {/* Throttling & Resilience */}
-            <div className="form-section-header mt-3">Throttling & Resilience</div>
+            <div className="form-section-header mt-3">Rate Limiting & Timeouts</div>
             <div className="form-grid-2">
               <div className="form-group">
                 <label className="form-label">Requests Per Minute (Rate Limit)</label>
@@ -236,13 +228,12 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
               </div>
             </div>
 
-            {/* Flags in clean separate cards to prevent text collision */}
-            <div className="form-section-header mt-3">Policy Flags</div>
+            <div className="form-section-header mt-3">Route Options</div>
             <div className="flags-cards-grid">
               <div className="flag-toggle-card">
                 <div className="flag-card-info">
-                  <div className="flag-title">Distributed Idempotency</div>
-                  <div className="flag-desc">Deduplicate identical concurrent write requests</div>
+                  <div className="flag-title">Idempotency</div>
+                  <div className="flag-desc">Prevent duplicate requests when clients retry</div>
                 </div>
                 <button
                   type="button"
@@ -256,8 +247,8 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
 
               <div className="flag-toggle-card">
                 <div className="flag-card-info">
-                  <div className="flag-title">Route Active & Serving Traffic</div>
-                  <div className="flag-desc">Immediately expose route to live inbound requests</div>
+                  <div className="flag-title">Active Route</div>
+                  <div className="flag-desc">Enable route immediately to serve live traffic</div>
                 </div>
                 <button
                   type="button"
@@ -270,10 +261,9 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
               </div>
             </div>
 
-            {/* Dynamic Header Rules */}
             <div className="header-rules-section mt-3">
               <div className="flex justify-between items-center mb-2">
-                <div className="form-section-header m-0">Header Transformation Rules</div>
+                <div className="form-section-header m-0">Header Rules (Optional)</div>
                 <button type="button" className="btn btn-secondary btn-sm" onClick={addHeaderRule}>
                   <Icons.Plus /> Add Rule
                 </button>
@@ -281,7 +271,7 @@ export function RouteModal({ route, onClose, onSaved, showToast }) {
 
               {headerRules.length === 0 ? (
                 <div className="empty-sub-card">
-                  <span>No header transformation rules defined. Headers will pass through unchanged.</span>
+                  <span>No custom headers configured. Headers will pass through as-is.</span>
                 </div>
               ) : (
                 <div className="rules-builder-list">

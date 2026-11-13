@@ -1,7 +1,3 @@
-/**
- * KoreVane™ - Role-Based Overview
- * Clean, lightweight, and focused on essential metrics and data.
- */
 import React, { useState, useEffect } from 'react';
 import { Icons } from '../../components/Icons';
 import { API } from '../../services/api';
@@ -50,7 +46,6 @@ export function OverviewView({ user, setTab, onCreateRoute, onOpenNewOrg, showTo
 
   return (
     <div className="view-container">
-      {/* View Header */}
       <div className="view-header-bar">
         <div>
           <h2 className="view-title">Overview</h2>
@@ -77,7 +72,6 @@ export function OverviewView({ user, setTab, onCreateRoute, onOpenNewOrg, showTo
         </div>
       </div>
 
-      {/* Clean Metric Cards */}
       <div className="metrics-grid">
         {role === "ROLE_PLATFORM_ADMIN" && (
           <>
@@ -178,7 +172,6 @@ export function OverviewView({ user, setTab, onCreateRoute, onOpenNewOrg, showTo
         )}
       </div>
 
-      {/* Main Snapshot Table */}
       <div className="data-table-card mt-4">
         {loading ? (
           <div className="table-loading-state">
@@ -187,7 +180,6 @@ export function OverviewView({ user, setTab, onCreateRoute, onOpenNewOrg, showTo
           </div>
         ) : (
           <>
-            {/* Platform Admin: Organizations */}
             {role === "ROLE_PLATFORM_ADMIN" && (
               <>
                 <div className="overview-panel-header">
@@ -247,7 +239,6 @@ export function OverviewView({ user, setTab, onCreateRoute, onOpenNewOrg, showTo
               </>
             )}
 
-            {/* Tenant Admin: Routes */}
             {role === "ROLE_TENANT_ADMIN" && (
               <>
                 <div className="overview-panel-header">
@@ -298,7 +289,6 @@ export function OverviewView({ user, setTab, onCreateRoute, onOpenNewOrg, showTo
               </>
             )}
 
-            {/* Gateway Service: Routes */}
             {role === "ROLE_GATEWAY_SERVICE" && (
               <>
                 <div className="overview-panel-header">

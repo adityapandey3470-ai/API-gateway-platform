@@ -1,7 +1,3 @@
-/**
- * KoreVane™ - Role-Based Navigation Sidebar
- * Responsive with mobile overlay support
- */
 import React from 'react';
 import { Icons } from './Icons';
 

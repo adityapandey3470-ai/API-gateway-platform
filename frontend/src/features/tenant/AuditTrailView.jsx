@@ -1,7 +1,3 @@
-/**
- * KoreVane™ - Control Plane Audit Trail View
- * Tamper-evident ledger with aligned columns, metric summary, and full responsiveness
- */
 import React, { useState, useEffect, useMemo } from 'react';
 import { Icons } from '../../components/Icons';
 import { API } from '../../services/api';
@@ -59,11 +55,10 @@ export function AuditTrailView({ showToast }) {
 
   return (
     <div className="view-container">
-      {/* View Header */}
       <div className="view-header-bar">
         <div>
-          <h2 className="view-title">Control Plane Audit Trail</h2>
-          <p className="view-subtitle">Tamper-evident log of administrative operations, policy changes, and routing state adjustments</p>
+          <h2 className="view-title">Audit Trail</h2>
+          <p className="view-subtitle">Activity log of administrative operations, configuration changes, and route updates</p>
         </div>
         <div className="view-actions-group">
           <button className="btn btn-secondary" onClick={loadRecords} title="Refresh Logs">
@@ -72,30 +67,29 @@ export function AuditTrailView({ showToast }) {
         </div>
       </div>
 
-      {/* Audit KPI Metric Cards matching design system */}
       <div className="metrics-grid">
         <div className="metric-card">
           <div className="metric-card-header">
-            <span className="metric-tag">Ledger</span>
+            <span className="metric-tag">Activity</span>
             <div className="status-indicator">
               <span className="status-dot online"></span>
               <span className="status-text">Recorded</span>
             </div>
           </div>
           <div className="metric-card-title">{totalEvents} Total Events</div>
-          <div className="metric-card-desc">Immutable cryptographically signed administrative history</div>
+          <div className="metric-card-desc">Logged admin operations and route changes</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-card-header">
-            <span className="metric-tag">Integrity</span>
+            <span className="metric-tag">Status</span>
             <div className="status-indicator">
               <span className="status-dot online"></span>
-              <span className="status-text">{successRate}% Verified</span>
+              <span className="status-text">{successRate}% Success</span>
             </div>
           </div>
           <div className="metric-card-title">{successEvents} Successful Operations</div>
-          <div className="metric-card-desc">Zero authorization breaches or unlogged mutations</div>
+          <div className="metric-card-desc">Operations that completed successfully without errors</div>
         </div>
 
         <div className="metric-card">
@@ -103,27 +97,26 @@ export function AuditTrailView({ showToast }) {
             <span className="metric-tag">Performance</span>
             <div className="status-indicator">
               <span className="status-dot online"></span>
-              <span className="status-text">Sub-ms</span>
+              <span className="status-text">Fast</span>
             </div>
           </div>
           <div className="metric-card-title">{avgLatency}ms Avg Latency</div>
-          <div className="metric-card-desc">Control-plane execution and database ledger write speed</div>
+          <div className="metric-card-desc">Average execution time for administrative requests</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-card-header">
-            <span className="metric-tag">Actors</span>
+            <span className="metric-tag">Users</span>
             <div className="status-indicator">
               <span className="status-dot online"></span>
               <span className="status-text">Active</span>
             </div>
           </div>
-          <div className="metric-card-title">{uniqueActors} Authenticated Operators</div>
+          <div className="metric-card-title">{uniqueActors} Active Operators</div>
           <div className="metric-card-desc">Tenant administrators and automated gateway sync nodes</div>
         </div>
       </div>
 
-      {/* Filter Bar */}
       <div className="filter-search-card">
         <div className="input-with-icon search-input-box">
           <span className="input-icon"><Icons.Search /></span>
@@ -141,7 +134,6 @@ export function AuditTrailView({ showToast }) {
         </div>
       </div>
 
-      {/* Data Table */}
       <div className="data-table-card">
         {loading ? (
           <div className="table-loading-state">
@@ -170,7 +162,6 @@ export function AuditTrailView({ showToast }) {
               <tbody>
                 {filtered.map((r) => (
                   <tr key={r.id}>
-                    {/* Timestamp */}
                     <td className="text-muted text-xs whitespace-nowrap">
                       {r.createdAt ? new Date(r.createdAt).toLocaleString(undefined, {
                         month: 'short',
@@ -182,24 +173,20 @@ export function AuditTrailView({ showToast }) {
                       }) : "—"}
                     </td>
 
-                    {/* Actor */}
                     <td className="whitespace-nowrap">
                       <span className="font-semibold text-primary">{r.actor}</span>
                     </td>
 
-                    {/* Action */}
                     <td className="whitespace-nowrap">
                       <span className="font-semibold text-primary">{r.action}</span>
                     </td>
 
-                    {/* Resource */}
                     <td className="whitespace-nowrap">
                       <span className="font-medium text-primary text-xs" title={r.resourceId}>
                         {r.resourceType} : {r.resourceId ? (r.resourceId.length > 18 ? `${r.resourceId.substring(0, 16)}...` : r.resourceId) : "—"}
                       </span>
                     </td>
 
-                    {/* Correlation ID */}
                     <td className="whitespace-nowrap">
                       <div 
                         className="correlation-id-chip" 
@@ -217,14 +204,12 @@ export function AuditTrailView({ showToast }) {
                       </div>
                     </td>
 
-                    {/* Latency */}
                     <td className="whitespace-nowrap">
                       <span className="audit-latency-pill font-mono text-xs">
                         {r.durationMs !== undefined && r.durationMs !== null ? `${r.durationMs}ms` : "—"}
                       </span>
                     </td>
 
-                    {/* Result */}
                     <td className="whitespace-nowrap">
                       <span
                         className={`status-chip ${

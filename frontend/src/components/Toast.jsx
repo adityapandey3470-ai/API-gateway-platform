@@ -1,7 +1,3 @@
-/**
- * KoreVane™ - Floating Notification Toast
- * Placed cleanly in top-right corner with polished styling
- */
 import React, { useEffect } from 'react';
 import { Icons } from './Icons';
 

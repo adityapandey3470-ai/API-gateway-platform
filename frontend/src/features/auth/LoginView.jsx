@@ -1,7 +1,3 @@
-/**
- * KoreVane™ - Authentication View
- * Clean, production-grade login form
- */
 import React, { useState } from 'react';
 import { Icons } from '../../components/Icons';
 import { API } from '../../services/api';

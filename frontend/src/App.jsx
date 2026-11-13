@@ -1,8 +1,7 @@
-/**
- * KoreVane™ - Main Application Root Component (Vite React SPA)
- */
 import React, { useState, useEffect } from 'react';
-import { API, TOUR_KEY, THEME_KEY } from './services/api';
+import { API, TOUR_KEY } from './services/api';
+import { useTheme } from './hooks/useTheme';
+import { useAuth } from './hooks/useAuth';
 import { SplashScreen } from './components/SplashScreen';
 import { OnboardingTour } from './components/OnboardingTour';
 import { Toast } from './components/Toast';
@@ -20,11 +19,6 @@ import { OverviewView } from './features/overview/OverviewView';
 import { HowToUseView } from './features/guide/HowToUseView';
 import { SettingsView } from './features/settings/SettingsView';
 
-function normalizeRole(rawRole) {
-  if (!rawRole) return "";
-  return rawRole.startsWith("ROLE_") ? rawRole : `ROLE_${rawRole}`;
-}
-
 function getDefaultTabForRole(rawRole) {
   if (rawRole) return "overview";
   return "guide";
@@ -32,21 +26,11 @@ function getDefaultTabForRole(rawRole) {
 
 export default function App() {
   const [splashActive, setSplashActive] = useState(true);
-
-  // Theme auto-detects system preference with manual override
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem(THEME_KEY);
-    if (saved) return saved;
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
-      return "light";
-    }
-    return "dark";
-  });
+  const { theme, toggleTheme } = useTheme();
+  const { user, userRole, setSessionData, logout } = useAuth();
 
   const [tourOpen, setTourOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState(() => API.getSession());
-  const userRole = normalizeRole(user?.role);
 
   const [currentTab, setCurrentTab] = useState(() => {
     const session = API.getSession();
@@ -54,34 +38,15 @@ export default function App() {
   });
 
   const [healthStatus, setHealthStatus] = useState("UP");
-  const [selectedOrgForAdmin, setSelectedOrgForAdmin] = useState(null);
+  const [adminOrg, setAdminOrg] = useState(null);
   const [routeModalData, setRouteModalData] = useState(null);
-  const [selectedRouteForVersions, setSelectedRouteForVersions] = useState(null);
+  const [versionModal, setVersionModal] = useState(null);
   const [toast, setToast] = useState(null);
 
   const showToast = (message, type = "info") => {
     setToast({ message, type });
   };
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem(THEME_KEY, theme);
-  }, [theme]);
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: light)");
-    const handler = (e) => {
-      if (!localStorage.getItem(THEME_KEY)) {
-        setTheme(e.matches ? "light" : "dark");
-      }
-    };
-    if (media.addEventListener) {
-      media.addEventListener("change", handler);
-      return () => media.removeEventListener("change", handler);
-    }
-  }, []);
-
-  // Guard currentTab against unauthorized access for the active role
   useEffect(() => {
     if (user) {
       const allowedTabsForRole = {
@@ -117,18 +82,13 @@ export default function App() {
     localStorage.setItem(TOUR_KEY, "true");
   };
 
-  const handleToggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
-
   const handleLoginSuccess = (sessionData) => {
-    setUser(sessionData);
+    setSessionData(sessionData);
     setCurrentTab(getDefaultTabForRole(sessionData ? sessionData.role : null));
   };
 
   const handleLogout = () => {
-    API.clearSession();
-    setUser(null);
+    logout();
     showToast("Signed out successfully.", "info");
   };
 
@@ -143,7 +103,7 @@ export default function App() {
         <Navbar
           user={null}
           theme={theme}
-          onToggleTheme={handleToggleTheme}
+          onToggleTheme={toggleTheme}
           onLogout={handleLogout}
           healthStatus={healthStatus}
         />
@@ -160,7 +120,7 @@ export default function App() {
       <Navbar
         user={user}
         theme={theme}
-        onToggleTheme={handleToggleTheme}
+        onToggleTheme={toggleTheme}
         onLogout={handleLogout}
         healthStatus={healthStatus}
         onToggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -189,7 +149,7 @@ export default function App() {
           {currentTab === "organizations" && userRole === "ROLE_PLATFORM_ADMIN" && (
             <OrganizationsView
               showToast={showToast}
-              onManageAdmin={(org) => setSelectedOrgForAdmin(org)}
+              onManageAdmin={(org) => setAdminOrg(org)}
             />
           )}
 
@@ -198,7 +158,7 @@ export default function App() {
               showToast={showToast}
               onCreateRoute={() => setRouteModalData({})}
               onEditRoute={(r) => setRouteModalData(r)}
-              onViewVersions={(r) => setSelectedRouteForVersions(r)}
+              onViewVersions={(r) => setVersionModal(r)}
             />
           )}
 
@@ -224,10 +184,10 @@ export default function App() {
 
       <OnboardingTour isOpen={tourOpen} onClose={handleTourClose} />
 
-      {selectedOrgForAdmin && (
+      {adminOrg && (
         <TenantAdminModal
-          org={selectedOrgForAdmin}
-          onClose={() => setSelectedOrgForAdmin(null)}
+          org={adminOrg}
+          onClose={() => setAdminOrg(null)}
           showToast={showToast}
         />
       )}
@@ -238,16 +198,16 @@ export default function App() {
           onClose={() => setRouteModalData(null)}
           onSaved={() => {
             setRouteModalData(null);
-            setCurrentTab((prev) => (prev === "routes" ? "routes" : "routes"));
+            setCurrentTab("routes");
           }}
           showToast={showToast}
         />
       )}
 
-      {selectedRouteForVersions && (
+      {versionModal && (
         <RouteVersionsModal
-          route={selectedRouteForVersions}
-          onClose={() => setSelectedRouteForVersions(null)}
+          route={versionModal}
+          onClose={() => setVersionModal(null)}
           showToast={showToast}
         />
       )}

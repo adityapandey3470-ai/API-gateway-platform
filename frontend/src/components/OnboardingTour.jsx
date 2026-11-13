@@ -1,38 +1,34 @@
-/**
- * KoreVane™ - Interactive Onboarding Walkthrough Tour
- * Inspired by Figma "ghost." stepper layout & clean aesthetics
- */
 import React, { useState } from 'react';
 import { Icons } from './Icons';
 
 const TOUR_SLIDES = [
   {
     step: "01",
-    title: "Isolate Your Tenants.",
-    tagline: "Multi-Tenant Architecture & Governance",
-    desc: "Decouple distinct organizations under a unified control plane. Assign dedicated Tenant Admins with scoped permissions over their routing domains.",
-    badge: "■ MULTI-TENANCY CORE"
+    title: "Organization Management",
+    tagline: "Multi-tenant workspace setup",
+    desc: "Manage multiple organizations under one control plane. Assign dedicated Tenant Admins to manage their own routes independently.",
+    badge: "Organizations"
   },
   {
     step: "02",
-    title: "Dynamic Smart Routing.",
-    tagline: "Sub-Millisecond Traffic Orchestration",
-    desc: "Define upstream targets, rate limits, HTTP method filters, and dynamic Header Rules. Instant reload across gateway clusters without restart.",
-    badge: "■ ZERO DOWNTIME"
+    title: "Dynamic Route Setup",
+    tagline: "Routing rules & policies",
+    desc: "Define upstream targets, rate limits, HTTP methods, and header rules. Changes take effect immediately without restarting services.",
+    badge: "API Routing"
   },
   {
     step: "03",
-    title: "Distributed Synchrony.",
-    tagline: "Apache Kafka & Redis Route Mesh",
-    desc: "Control-plane modifications broadcast instantaneously to Smart Gateway worker pods. Hot caches remain warmed with sub-millisecond route resolution.",
-    badge: "■ EVENT MESH"
+    title: "Real-time Synchronization",
+    tagline: "Instant gateway propagation",
+    desc: "Route changes broadcast automatically to all running Smart Gateway instances, keeping live traffic policies up to date.",
+    badge: "Gateway Sync"
   },
   {
     step: "04",
-    title: "Audit & Version Vault.",
-    tagline: "Immutable Route Snapshots & Telemetry",
-    desc: "Every routing modification creates an immutable snapshot version with instant rollbacks and tamper-evident audit logs.",
-    badge: "■ COMPLIANCE VAULT"
+    title: "Version History & Audits",
+    tagline: "Track changes and audit trail",
+    desc: "Every route update creates a version snapshot for tracking changes, accompanied by an audit trail for compliance and safety.",
+    badge: "History & Logs"
   }
 ];
 
@@ -80,7 +76,6 @@ export function OnboardingTour({ isOpen, onClose }) {
           <div className="tour-tagline">{slide.tagline}</div>
           <p className="tour-desc">{slide.desc}</p>
 
-          {/* Stepper navigation bar inspired by Figma Image 2 */}
           <div className="tour-stepper-dots">
             {TOUR_SLIDES.map((_, idx) => (
               <button

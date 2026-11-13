@@ -1,6 +1,3 @@
-/**
- * KoreVane™ - Instagram-style App Launch Splash Screen
- */
 import React, { useState, useEffect } from 'react';
 
 export function SplashScreen({ onFinish }) {

@@ -1,7 +1,3 @@
-/**
- * KoreVane™ - Top Navigation Header Bar
- * Clean, unified palette, consistent typography & mobile menu toggle
- */
 import React from 'react';
 import { Icons } from './Icons';
 
@@ -37,13 +33,11 @@ export function Navbar({ user, theme, onToggleTheme, onLogout, healthStatus, onT
       </div>
 
       <div className="navbar-actions">
-        {/* System Health Indicator */}
         <div className="health-badge-pill" title="Gateway Health Status">
           <span className={`health-dot ${healthStatus === "UP" ? "dot-online" : "dot-offline"}`}></span>
           <span className="health-label">{healthStatus === "UP" ? "System Optimal" : "Degraded"}</span>
         </div>
 
-        {/* Theme Mode Toggle */}
         <button
           className="theme-toggle-btn"
           onClick={onToggleTheme}
@@ -53,7 +47,6 @@ export function Navbar({ user, theme, onToggleTheme, onLogout, healthStatus, onT
           {theme === "dark" ? <Icons.Sun /> : <Icons.Moon />}
         </button>
 
-        {/* User Profile & Sign Out */}
         {user && (
           <div className="navbar-user-block">
             <div className="user-avatar-badge" title={username || roleName}>

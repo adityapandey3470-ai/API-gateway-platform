@@ -1,7 +1,3 @@
-/**
- * KoreVane™ - Tenant API Routes View
- * Clean, consistent metric cards matching the rest of the UI
- */
 import React, { useState, useEffect } from 'react';
 import { Icons } from '../../components/Icons';
 import { API } from '../../services/api';
@@ -59,11 +55,10 @@ export function RoutesView({ showToast, onEditRoute, onCreateRoute, onViewVersio
 
   return (
     <div className="view-container">
-      {/* Header */}
       <div className="view-header-bar">
         <div>
-          <h2 className="view-title">Dynamic API Routes</h2>
-          <p className="view-subtitle">Sub-millisecond traffic dispatching, policy injection, and security rules</p>
+          <h2 className="view-title">API Routes</h2>
+          <p className="view-subtitle">Manage routing rules, rate limits, and upstream destinations for your microservices</p>
         </div>
         <div className="view-actions-group">
           <button className="btn btn-secondary" onClick={loadRoutes} title="Refresh Routes">
@@ -75,46 +70,44 @@ export function RoutesView({ showToast, onEditRoute, onCreateRoute, onViewVersio
         </div>
       </div>
 
-      {/* Clean White Metric Cards matching the rest of the application */}
       <div className="metrics-grid">
         <div className="metric-card">
           <div className="metric-card-header">
-            <span className="metric-tag">Zero-Trust</span>
+            <span className="metric-tag">Security</span>
             <div className="status-indicator">
               <span className="status-dot online"></span>
               <span className="status-text">Active</span>
             </div>
           </div>
-          <div className="metric-card-title">Token Verification</div>
-          <div className="metric-card-desc">Inbound JWT validation with automated key rotation</div>
+          <div className="metric-card-title">JWT Authentication</div>
+          <div className="metric-card-desc">Validates bearer tokens and checks tenant authorization</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-card-header">
-            <span className="metric-tag">Performance</span>
+            <span className="metric-tag">Gateway</span>
             <div className="status-indicator">
               <span className="status-dot online"></span>
-              <span className="status-text">Sub-ms</span>
+              <span className="status-text">Ready</span>
             </div>
           </div>
-          <div className="metric-card-title">Routing Engine</div>
-          <div className="metric-card-desc">Ant-path dispatching cache active across gateway instances</div>
+          <div className="metric-card-title">Path Routing</div>
+          <div className="metric-card-desc">Matches incoming request URLs and forwards to target services</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-card-header">
-            <span className="metric-tag">Messaging</span>
+            <span className="metric-tag">Sync</span>
             <div className="status-indicator">
               <span className="status-dot online"></span>
               <span className="status-text">Connected</span>
             </div>
           </div>
-          <div className="metric-card-title">Cluster Event Pipeline</div>
-          <div className="metric-card-desc">Real-time configuration broadcasting via Apache Kafka</div>
+          <div className="metric-card-title">Live Config Sync</div>
+          <div className="metric-card-desc">Route changes propagate across all gateway nodes via Kafka</div>
         </div>
       </div>
 
-      {/* Filter bar */}
       <div className="filter-search-card">
         <div className="input-with-icon search-input-box">
           <span className="input-icon"><Icons.Search /></span>
@@ -134,7 +127,6 @@ export function RoutesView({ showToast, onEditRoute, onCreateRoute, onViewVersio
         </div>
       </div>
 
-      {/* Table */}
       <div className="data-table-card">
         {loading ? (
           <div className="table-loading-state">

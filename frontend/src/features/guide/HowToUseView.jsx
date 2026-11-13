@@ -1,7 +1,3 @@
-/**
- * KoreVane™ - User Guide & Workflow Overview
- * Clean, user-facing documentation without raw security or internal credentials
- */
 import React from 'react';
 import { Icons } from '../../components/Icons';
 
@@ -15,7 +11,6 @@ export function HowToUseView() {
         </div>
       </div>
 
-      {/* Feature Explanations */}
       <div className="guide-architecture-grid">
         <div className="guide-card">
           <div className="guide-card-icon"><Icons.Building /></div>
@@ -54,7 +49,6 @@ export function HowToUseView() {
         </div>
       </div>
 
-      {/* Step by Step Workflow */}
       <div className="data-table-card p-6">
         <h3 className="section-title mb-3">Typical Setup Workflow</h3>
         <div className="pipeline-steps-container">

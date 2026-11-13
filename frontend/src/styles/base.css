@@ -1,0 +1,61 @@
+/* Base & Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  min-height: calc(100vh - 20px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Background Ambient Orbs */
+.bg-ambient-mesh {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.6;
+}
+
+.mesh-orb-1, .mesh-orb-2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+.mesh-orb-1 {
+  top: -10%;
+  left: 15%;
+  width: 400px;
+  height: 400px;
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.mesh-orb-2 {
+  bottom: -10%;
+  right: 15%;
+  width: 450px;
+  height: 450px;
+  background: rgba(139, 92, 246, 0.07);
+}

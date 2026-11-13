@@ -1,10 +1,25 @@
-/**
- * KoreVane™ - API Service & Storage Layer (Vite React Client)
- */
-
 export const SESSION_KEY = "korevane_auth_session";
 export const TOUR_KEY = "korevane_tour_completed";
 export const THEME_KEY = "korevane_theme_mode";
+
+function decodeJwtUsername(token) {
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.sub || "User";
+  } catch {
+    return "User";
+  }
+}
+
+function normalizeSession(data) {
+  if (data.role && !data.role.startsWith("ROLE_")) {
+    data.role = `ROLE_${data.role}`;
+  }
+  if (!data.username && data.token) {
+    data.username = decodeJwtUsername(data.token);
+  }
+  return data;
+}
 
 export const API = {
   getToken: () => {
@@ -20,39 +35,14 @@ export const API = {
     try {
       const data = JSON.parse(sessionStorage.getItem(SESSION_KEY));
       if (!data) return null;
-      if (data.role && !data.role.startsWith("ROLE_")) {
-        data.role = `ROLE_${data.role}`;
-      }
-      if (!data.username && data.token) {
-        try {
-          const payloadBase64 = data.token.split('.')[1];
-          const payload = JSON.parse(atob(payloadBase64));
-          data.username = payload.sub || "User";
-        } catch {
-          data.username = "User";
-        }
-      }
-      return data;
+      return normalizeSession(data);
     } catch {
       return null;
     }
   },
 
   setSession: (sessionData) => {
-    if (sessionData) {
-      if (sessionData.role && !sessionData.role.startsWith("ROLE_")) {
-        sessionData.role = `ROLE_${sessionData.role}`;
-      }
-      if (!sessionData.username && sessionData.token) {
-        try {
-          const payloadBase64 = sessionData.token.split('.')[1];
-          const payload = JSON.parse(atob(payloadBase64));
-          sessionData.username = payload.sub || "User";
-        } catch {
-          sessionData.username = "User";
-        }
-      }
-    }
+    if (sessionData) normalizeSession(sessionData);
     sessionStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
   },
 
@@ -87,17 +77,14 @@ export const API = {
     return data;
   },
 
-  // Auth
   login: (username, password) =>
     API.request("/api/auth/login", {
       method: "POST",
       body: JSON.stringify({ username, password })
     }),
 
-  // Health
   getHealth: () => API.request("/health"),
 
-  // Platform Organizations
   getOrganizations: () => API.request("/api/platform/organizations"),
   getOrganizationById: (id) => API.request(`/api/platform/organizations/${id}`),
   createOrganization: (name, slug) =>
@@ -118,7 +105,6 @@ export const API = {
   deleteOrganization: (id) =>
     API.request(`/api/platform/organizations/${id}`, { method: "DELETE" }),
 
-  // Tenant Admins
   createTenantAdmin: (orgId, username, password) =>
     API.request(`/api/platform/organizations/${orgId}/tenant-admin`, {
       method: "POST",
@@ -136,7 +122,6 @@ export const API = {
       method: "DELETE"
     }),
 
-  // Tenant Organization
   getMyOrganization: () => API.request("/api/tenant/organization"),
   updateMyOrganization: (name, slug) =>
     API.request("/api/tenant/organization", {
@@ -144,7 +129,6 @@ export const API = {
       body: JSON.stringify({ name, slug })
     }),
 
-  // Tenant Routes
   getRoutes: () => API.request("/api/tenant/routes"),
   getRouteById: (id) => API.request(`/api/tenant/routes/${id}`),
   createRoute: (payload) =>
@@ -165,13 +149,10 @@ export const API = {
   deleteRoute: (id) =>
     API.request(`/api/tenant/routes/${id}`, { method: "DELETE" }),
 
-  // Route Version History
   getRouteVersions: (routeId) =>
     API.request(`/api/tenant/route-versions/${routeId}`),
 
-  // Audit Records
   getAuditRecords: () => API.request("/api/tenant/audit-records"),
 
-  // Gateway Active Routes
   getGatewayActiveRoutes: () => API.request("/api/gateway/routes")
 };

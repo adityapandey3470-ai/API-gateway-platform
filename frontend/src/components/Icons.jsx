@@ -1,6 +1,3 @@
-/**
- * KoreVane™ - Custom Bespoke SVG Icon Library
- */
 import React from 'react';
 
 export const Icons = {
