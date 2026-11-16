@@ -8,15 +8,12 @@ export function SettingsView({ user, onReplayTour, showToast }) {
   const userRole = user && user.role ? (user.role.startsWith("ROLE_") ? user.role : `ROLE_${user.role}`) : "";
   const isTenantAdmin = userRole === "ROLE_TENANT_ADMIN";
 
-  // Active section
   const [activeSection, setActiveSection] = useState(isTenantAdmin ? "profile" : "report-bug");
 
-  // Organization profile
   const [orgData, setOrgData] = useState(null);
   const [orgName, setOrgName] = useState("");
   const [savingOrg, setSavingOrg] = useState(false);
 
-  // Normal, simple bug report state
   const [bugTitle, setBugTitle] = useState("");
   const [bugDescription, setBugDescription] = useState("");
 
@@ -61,7 +58,6 @@ export function SettingsView({ user, onReplayTour, showToast }) {
     }
   };
 
-  // Normal simple bug send via Gmail
   const handleSendBugViaGmail = (e) => {
     e.preventDefault();
     if (!bugTitle.trim()) {
@@ -357,11 +353,11 @@ export function SettingsView({ user, onReplayTour, showToast }) {
 
               <div className="session-info-table mt-4">
                 <div className="session-info-row">
-                  <span className="info-key">User Principal:</span>
+                  <span className="info-key">Username:</span>
                   <span className="info-val font-semibold">{user?.username || "Anonymous"}</span>
                 </div>
                 <div className="session-info-row">
-                  <span className="info-key">Granted Authority:</span>
+                  <span className="info-key">Role:</span>
                   <span className="info-val font-mono">{user?.role || "None"}</span>
                 </div>
                 <div className="session-info-row">

@@ -138,7 +138,7 @@ export function OverviewView({ user, setTab, onCreateRoute, onOpenNewOrg, showTo
                 </div>
               </div>
               <div className="metric-card-title">Cluster Health: {healthStatus}</div>
-              <div className="metric-card-desc">Traffic dispatching engine is synchronized</div>
+              <div className="metric-card-desc">Gateway is running and routing traffic normally</div>
             </div>
           </>
         )}
@@ -153,8 +153,8 @@ export function OverviewView({ user, setTab, onCreateRoute, onOpenNewOrg, showTo
                   <span className="status-text">Live</span>
                 </div>
               </div>
-              <div className="metric-card-title">{gatewayRoutes.length} Compiled Routes</div>
-              <div className="metric-card-desc">Routes currently loaded into memory</div>
+              <div className="metric-card-title">{gatewayRoutes.length} Active Routes</div>
+              <div className="metric-card-desc">Routes currently loaded and serving traffic</div>
             </div>
 
             <div className="metric-card">
@@ -166,7 +166,7 @@ export function OverviewView({ user, setTab, onCreateRoute, onOpenNewOrg, showTo
                 </div>
               </div>
               <div className="metric-card-title">Cluster Health: {healthStatus}</div>
-              <div className="metric-card-desc">Worker node operational and accepting traffic</div>
+              <div className="metric-card-desc">Gateway is up and handling requests</div>
             </div>
           </>
         )}
@@ -329,7 +329,7 @@ export function OverviewView({ user, setTab, onCreateRoute, onOpenNewOrg, showTo
                       {gatewayRoutes.length === 0 && (
                         <tr>
                           <td colSpan="4" className="text-center text-muted" style={{ padding: "24px" }}>
-                            No active routes compiled into edge memory.
+                            No active routes found.
                           </td>
                         </tr>
                       )}

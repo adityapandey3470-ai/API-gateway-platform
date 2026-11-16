@@ -16,10 +16,11 @@
   --border-subtle: #e2e8f0;
   --border-card: #e2e8f0;
   --border-focus: #6366f1;
+  --border-input: #7c8aa0;
 
   --text-primary: #0f172a;
   --text-secondary: #475569;
-  --text-muted: #94a3b8;
+  --text-muted: #5b6b82;
   --text-inverse: #ffffff;
 
   /* Primary Accent: Indigo-Violet */
@@ -70,10 +71,11 @@
   --border-subtle: #22252c;
   --border-card: #22252c;
   --border-focus: #818cf8;
+  --border-input: #636b7b;
 
   --text-primary: #f3f4f6;
   --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
+  --text-muted: #8b93a1;
   --text-inverse: #090a0d;
 
   --brand-primary: #818cf8;

@@ -7,7 +7,7 @@ export function HowToUseView() {
       <div className="view-header-bar">
         <div>
           <h2 className="view-title">User Guide</h2>
-          <p className="view-subtitle">Understanding platform workflows, routing policies, and configuration management</p>
+          <p className="view-subtitle">A quick guide to setting up your organization, routes, and traffic rules</p>
         </div>
       </div>
 
@@ -16,8 +16,8 @@ export function HowToUseView() {
           <div className="guide-card-icon"><Icons.Building /></div>
           <h3>1. Organization Hierarchy</h3>
           <p>
-            Platform Administrators manage tenant organizations. Each organization receives an isolated
-            namespace ensuring clean boundaries across microservices and dedicated administrative control.
+            Platform Administrators create and manage tenant organizations. Each organization gets its own
+            space with a unique slug, keeping teams and their data completely separate.
           </p>
         </div>
 
@@ -25,8 +25,8 @@ export function HowToUseView() {
           <div className="guide-card-icon"><Icons.Route /></div>
           <h3>2. Route Management</h3>
           <p>
-            Tenant Administrators can register API routes, specifying inbound path patterns, upstream target URLs,
-            allowed HTTP methods, and custom timeouts.
+            Tenant Administrators can add API routes by specifying the incoming path, the backend URL to
+            forward requests to, which HTTP methods are allowed, and an optional timeout.
           </p>
         </div>
 
@@ -34,8 +34,8 @@ export function HowToUseView() {
           <div className="guide-card-icon"><Icons.Shield /></div>
           <h3>3. Traffic Policies & Protection</h3>
           <p>
-            Configure rate limits per route using requests-per-minute thresholds. Enable idempotency
-            to prevent duplicate transactions, and apply custom header injection rules.
+            Set a request rate limit per route to prevent overload. You can also enable duplicate
+            request blocking and add custom headers to outgoing requests.
           </p>
         </div>
 
@@ -43,8 +43,8 @@ export function HowToUseView() {
           <div className="guide-card-icon"><Icons.History /></div>
           <h3>4. Version History & Audit Trail</h3>
           <p>
-            Every routing update creates an immutable version snapshot. Inspect historical configurations
-            and review audit records to track changes made by platform and tenant users.
+            Every time a route is updated, the old settings are saved as a version. You can browse past
+            versions and check who made what changes in the Audit Trail.
           </p>
         </div>
       </div>

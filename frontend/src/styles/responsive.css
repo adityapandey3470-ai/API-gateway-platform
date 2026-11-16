@@ -1,5 +1,5 @@
-/* RESPONSIVE DESIGN SYSTEM (TABLET & MOBILE BREAKPOINTS)
-   Desktop layout (> 1024px) remains completely untouched and pristine. */
+/* Responsive breakpoints — tablet and mobile only.
+   Desktop layout (> 1024px) is not modified here. */
 
 /* -------------------------------------------------------------------------
    1. TABLET BREAKPOINT (max-width: 1024px)
@@ -51,7 +51,6 @@
 
   /* Settings on Tablet */
   .settings-modular-layout {
-    grid-template-columns: 210px 1fr !important;
     gap: 16px !important;
     min-width: 0 !important;
   }
@@ -94,7 +93,8 @@
     width: 100% !important;
   }
 
-  /* Disable mobile modal drawer; convert sidebar into top horizontal scrollable nav */
+  /* Sidebar becomes a full-width top nav bar on phones,
+     so the hamburger toggle button is not needed here */
   .mobile-menu-btn {
     display: none !important;
   }
@@ -548,6 +548,11 @@
     font-size: 0.82rem !important;
     box-sizing: border-box !important;
   }
+
+  .guide-architecture-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
 }
 
 /* -------------------------------------------------------------------------
@@ -611,6 +616,50 @@
 
   .settings-card-header h3 {
     font-size: 0.98rem !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1024px) {
+  .settings-modular-layout {
+    grid-template-columns: 210px 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .mobile-menu-btn {
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  .form-input,
+  .bug-input-rect,
+  .bug-textarea,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  .btn {
+    min-height: 44px;
+  }
+
+  .btn-sm {
+    min-height: 40px;
+  }
+
+  .theme-toggle-btn,
+  .logout-action-btn {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .sidebar-nav-item,
+  .settings-nav-tab {
+    min-height: 44px;
   }
 }
 

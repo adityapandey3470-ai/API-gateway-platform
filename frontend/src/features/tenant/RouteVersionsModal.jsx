@@ -34,7 +34,7 @@ export function RouteVersionsModal({ route, onClose, showToast }) {
         <div className="modal-header">
           <div>
             <h3>Revision History: {route.routeId}</h3>
-            <p className="modal-subtitle">Immutable audit snapshots of all route configuration changes</p>
+            <p className="modal-subtitle">All saved versions of this route's configuration</p>
           </div>
           <button className="modal-close" onClick={onClose}>
             <Icons.X />
@@ -45,7 +45,7 @@ export function RouteVersionsModal({ route, onClose, showToast }) {
           {loading ? (
             <div className="table-loading-state">
               <div className="spinner-glow"></div>
-              <span>Fetching version tree...</span>
+              <span>Loading versions...</span>
             </div>
           ) : versions.length === 0 ? (
             <div className="table-empty-state">
@@ -81,7 +81,7 @@ export function RouteVersionsModal({ route, onClose, showToast }) {
                   <div>
                     <div className="snapshot-header-row">
                       <span className="font-semibold text-primary">
-                        Configuration Snapshot (v{selectedVersion.versionNumber})
+                        Version {selectedVersion.versionNumber} Details
                       </span>
                       <span className="text-xs text-muted">
                         Change Type: {selectedVersion.changeType}

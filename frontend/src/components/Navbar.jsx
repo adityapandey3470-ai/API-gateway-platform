@@ -20,7 +20,7 @@ export function Navbar({ user, theme, onToggleTheme, onLogout, healthStatus, onT
             onClick={onToggleMobileMenu}
             aria-label="Toggle Navigation"
           >
-            <Icons.Filter />
+            <Icons.Menu />
           </button>
         )}
         <div className="navbar-brand">
