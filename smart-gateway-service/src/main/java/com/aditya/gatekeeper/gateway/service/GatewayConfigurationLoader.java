@@ -2,7 +2,6 @@ package com.aditya.gatekeeper.gateway.service;
 
 import com.aditya.gatekeeper.gateway.client.ManagementApiClient;
 import com.aditya.gatekeeper.gateway.dto.GatewayRoute;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -13,9 +12,12 @@ import java.util.List;
 public class GatewayConfigurationLoader implements ApplicationRunner {
 
     private final ManagementApiClient managementApiClient;
+    private final RouteRegistry routeRegistry;
 
-    public GatewayConfigurationLoader(ManagementApiClient managementApiClient) {
+    public GatewayConfigurationLoader(ManagementApiClient managementApiClient,
+                                      RouteRegistry routeRegistry) {
         this.managementApiClient = managementApiClient;
+        this.routeRegistry = routeRegistry;
     }
 
     @Override
@@ -25,10 +27,6 @@ public class GatewayConfigurationLoader implements ApplicationRunner {
 
     public void refresh() {
         List<GatewayRoute> routes = managementApiClient.fetchActiveRoutes();
-
-        //demo
-        for(GatewayRoute route : routes) {
-            System.out.println("Route : " + route.getTargetPathPrefix());
-        }
+        routeRegistry.replaceAll(routes);
     }
 }
